@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/jacy/project/no_ros_communication/build",
+  "command": "/usr/bin/g++   -g -Wall -Wextra -pedantic -std=gnu++11 -o CMakeFiles/communication.dir/src/communication.cpp.o -c /home/jacy/project/no_ros_communication/src/communication.cpp",
+  "file": "/home/jacy/project/no_ros_communication/src/communication.cpp"
+}
+]
