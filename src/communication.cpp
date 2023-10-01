@@ -22,14 +22,12 @@ enum State
 {
     SEARCHING,
     FOUND_HEADER,
-    GET_LENGTH,
     IN_FRAME
 };
 enum State_Write
 {
     CONTENT,
-    LEN_TYPE,
-    HEADER,
+    HEADER_LEN_TYPE,
     SEND
 };
 
@@ -52,7 +50,7 @@ private:
     uint8_t write_buf[MAX_LEN] = {0};
     State state = SEARCHING;
     State_Write state_write = CONTENT;
-    mutex mtx_uart;
+    // mutex mtx_uart;
 
 public:
     uart(){};
@@ -60,7 +58,7 @@ public:
     ~uart();
     void uart_init()
     {
-        lock_guard<mutex> lock(mtx_uart);
+        // lock_guard<mutex> lock(mtx_uart);
 
         // 打开串口设备文件,指定只读写模式,不控制串口
         int fd = open(this->name.c_str(), this->open_mode);
@@ -118,7 +116,7 @@ public:
     }
     void my_read(my_data &data)
     {
-        lock_guard<mutex> lock(mtx_uart);
+        // lock_guard<mutex> lock(mtx_uart);
         while (true)
         {
 
@@ -139,14 +137,17 @@ public:
                 }
                 else
                 {
-                    this->state = GET_LENGTH;
+                    length = this->read_buf[0] & 0x7f;
+                    type = this->read_buf[0] >> 7;
+                    // check the length
+                    if (length > 20)
+                    {
+                        this->state = SEARCHING;
+                        break;
+                    }
+                    // printf("%x\t%x\t%x\n", this->read_buf[0], length, type);
+                    this->state = IN_FRAME;
                 }
-            }
-            if (this->state == GET_LENGTH)
-            {
-                length = this->read_buf[0] & 0x7f;
-                type = this->read_buf[0] >> 7;
-                this->state = IN_FRAME;
             }
             if (this->state == IN_FRAME)
             {
@@ -167,7 +168,7 @@ public:
     }
     void my_write(my_data &data)
     {
-        lock_guard<mutex> lock(mtx_uart);
+        // lock_guard<mutex> lock(mtx_uart);
         SerialData pack = data.SendQueue.front();
         data.SendQueue.pop_front();
         while (true)
@@ -213,35 +214,23 @@ public:
                     }
                 }
                 // 遇到0xFC重复一遍
-                this->state_write = LEN_TYPE;
+                this->state_write = HEADER_LEN_TYPE;
             }
-            if (this->state_write == LEN_TYPE)
-            {
-                if (pack.pack_type == 2)
-                {
-                    // only flags
-                    this->write_buf[1] = this->length_flag & 0xff;
-                }
-                else if (pack.pack_type == 3)
-                {
-                    // flags & pose
-                    this->write_buf[1] = this->length_flag & 0xff;
-                    this->write_buf[this->length_flag + 3] = this->length_target | 0x80 & 0xff;
-                }
-                this->state_write = HEADER;
-            }
-            if (this->state_write == HEADER)
+            if (this->state_write == HEADER_LEN_TYPE)
             {
                 if (pack.pack_type == 2)
                 {
                     // only flags
                     this->write_buf[0] = 0xFC;
+                    this->write_buf[1] = this->length_flag & 0xff;
                 }
                 else if (pack.pack_type == 3)
                 {
                     // flags & pose
                     this->write_buf[0] = 0xFC;
+                    this->write_buf[1] = this->length_flag & 0xff;
                     this->write_buf[this->length_flag + 2] = 0xFC;
+                    this->write_buf[this->length_flag + 3] = this->length_target | 0x80 & 0xff;
                 }
                 this->state_write = SEND;
             }
@@ -300,19 +289,27 @@ void ReceiveThread(my_data &data, uart &uart1)
         }
     }
 }
-pose_pack pose;
 void SendThread(my_data &data, uart &uart1)
 {
     while (true)
     {
-        unsigned long long delta_time = data.ts.GetTimeDiff().time_us;
+        pose_pack pose;
+        unsigned long long delta_time = data.ts.GetTimeStamp().time_us;
+        // uint8_t tep[10] = {0x00};
+        // write(uart1.fd, tep, 10);
         if (data.write_pack(pose))
         {
             uart1.my_write(data);
-            delta_time = data.ts.GetTimeDiff().time_us - delta_time;
+            delta_time = data.ts.GetTimeStamp().time_us - delta_time;
+            // printf("%ld\n",delta_time);
+            // printf("%ld\n",data.ts.GetTimeStamp().time_ms);
             if (delta_time < 20000)
             {
                 usleep(20000 - delta_time);
+            }
+            else
+            {
+                usleep(20000);
             }
         }
     }

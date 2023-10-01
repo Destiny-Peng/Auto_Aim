@@ -102,8 +102,8 @@ private:
 public:
     my_data(){};
     ~my_data(){};
-    unsigned long long pose_mcu_time = 0;
-    unsigned long long base_mcu_time = 0;
+    my_time pose_mcu_time;
+    my_time base_mcu_time;
     uint8_t mode = 0;
     double bullet_speed = 0;
     bool isRightMouseButtonPressing = false;
@@ -177,11 +177,9 @@ public:
                     uint8_t ptz_roll_low8 = real_data[5];
                     double ptz_roll = ((static_cast<uint16_t>(ptz_roll_high8) << 8) | ptz_roll_low8) / 180.0;
                     // 获取当前姿态电控时刻
-                    this->pose_mcu_time = real_data[6] * 5;
-                    my_time mcu_time;
-                    mcu_time = mcu_time / 100 + this->ts.GetTimeStamp();
+                    this->pose_mcu_time.ms_init(real_data[6] * 5);
+                    my_time mcu_time = this->base_mcu_time + this->pose_mcu_time % 100;
                     // 取姿态包的十位和个位，取对时包的其他位
-                    mcu_time.ms_init(this->pose_mcu_time);
                     // 维护队列长度
                     pose_pack_queue.updata_size(); // bug here
 
@@ -194,10 +192,8 @@ public:
                     uint8_t base_mcu_time_low8 = real_data[0];
                     uint8_t base_mcu_time_mid8 = real_data[1];
                     uint8_t base_mcu_time_high8 = real_data[2];
-                    this->base_mcu_time = ((static_cast<uint32_t>(base_mcu_time_high8) << 16) | (static_cast<uint32_t>(base_mcu_time_mid8) << 8) | base_mcu_time_low8) * 100;
-                    my_time tep;
-                    tep.ms_init(this->base_mcu_time);
-                    ts.UpdateTimeDiff(tep);
+                    this->base_mcu_time.ms_init(((static_cast<uint32_t>(base_mcu_time_high8) << 16) | (static_cast<uint32_t>(base_mcu_time_mid8) << 8) | base_mcu_time_low8) * 100);
+                    ts.UpdateTimeDiff(this->base_mcu_time);
                     // 获取自瞄模式的高四位
                     this->mode = real_data[3] & 0x0f;
                     // 获取子弹速度的高四位低八位
@@ -231,7 +227,6 @@ public:
         flags = flags << 1 | this->sendFlagPack.burstShoot;
         flags = flags << 1 | this->sendFlagPack.fire;
         flags = flags << 1 | this->sendFlagPack.target_found;
-        flags = flags << 1;
 
         origin[0] = flags;
         origin[1] = this->sendFlagPack.mode;
@@ -248,9 +243,10 @@ public:
         my_time mt;
         mt = this->ts.GetTimeStamp(mt);
         this->sendTargetDataPack.send_digit = mt.time_ms % 1000 / 10;
+        uint8_t type = 2;
         if (this->sendFlagPack.target_found)
         {
-            origin[7] = this->sendTargetDataPack.send_digit & 0x07 >> 1;
+            origin[7] = this->sendTargetDataPack.send_digit;
             origin[8] = this->sendTargetDataPack.pred_pitch >> 8;
             origin[9] = this->sendTargetDataPack.pred_pitch & 0xff;
             origin[10] = this->sendTargetDataPack.pred_yaw >> 8;
@@ -261,17 +257,12 @@ public:
             sum = (origin[7] + origin[8] + origin[9] + origin[10] + origin[11] + origin[12] + origin[13]) & 0xff;
             origin[14] = sum;
             len = 15;
-            /* code */
-        }
-        uint8_t type = 2;
-        if (this->sendFlagPack.target_found)
-        {
-            // 两种包
             type = 3;
         }
 
         SerialData pack((uint8_t *)origin, len, type, mt);
         this->SendQueue.push_front(pack);
+        return 1;
     }
     pose_pack get_info(my_time mt)
     {
