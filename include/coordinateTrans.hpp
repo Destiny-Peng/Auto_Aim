@@ -37,7 +37,7 @@ public:
     // bool receiveDta(void);
 
 
-    void coordinateTrans(cv::Point3f inputPoint);//没理解错的话应该是Armor类调用我，即识别一个点转化一次
+    void coordinateTrans(const cv::Point3f& targetPoint, const std::vector<cv::Point2f>& inputPoints);//没理解错的话应该是Armor类调用我，即识别一个点转化一次
     void traceCal(void);
 
 
