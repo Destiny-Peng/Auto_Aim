@@ -217,18 +217,18 @@ bool TargetSolver::readParas(std::string fileName)
 // bool TargetSolver::receiveDta(void)
 // {}
 
-void TargetSolver::coordinateTrans(cv::Point3f inputPoint)//没理解错的话应该是Armor类调用我，即识别一个点转化一次
+void TargetSolver::coordinateTrans(const cv::Point3f& targetPoint, const std::vector<cv::Point2f>& inputPoints)//没理解错的话应该是Armor类调用我，即识别一个点转化一次
 {
     std::vector<double> rvec;//旋转向量
     std::vector<double> tvec;//平移向量
     cv::Mat R;
     /*第一步：获取想要的参数*/
     //cv::RotatedRect Rect_1, Rect_2;//得改，因为这应该是从Armor里提取的
-    std::vector<cv::Point2f> P2D;//从Armor里取4个点以及顺序
-    P2D.push_back(cv::Point2f(140, 205));
-    P2D.push_back(cv::Point2f(182, 204));
-    P2D.push_back(cv::Point2f(182, 222));
-    P2D.push_back(cv::Point2f(141, 223));
+    // std::vector<cv::Point2f> P2D;//从Armor里取4个点以及顺序
+    // P2D.push_back(cv::Point2f(140, 205));
+    // P2D.push_back(cv::Point2f(182, 204));
+    // P2D.push_back(cv::Point2f(182, 222));
+    // P2D.push_back(cv::Point2f(141, 223));
 
     // P2D.push_back(cv::Point2f(0.2, 0.2));
     // P2D.push_back(cv::Point2f(0.6, 0.2));
@@ -240,11 +240,11 @@ void TargetSolver::coordinateTrans(cv::Point3f inputPoint)//没理解错的话�
     /*第二步：获取旋转向量以及平移向量*/
     if (0 == isBig)
     {
-        cv::solvePnP(PW3D_Small, P2D, cameraMatrix, distCoeffs, rvec, tvec, false, cv::SOLVEPNP_ITERATIVE);
+        cv::solvePnP(PW3D_Small, inputPoints, cameraMatrix, distCoeffs, rvec, tvec, false, cv::SOLVEPNP_ITERATIVE);
     }
     else
     {
-        cv::solvePnP(PW3D_Big, P2D, cameraMatrix, distCoeffs, rvec, tvec, false, cv::SOLVEPNP_ITERATIVE);
+        cv::solvePnP(PW3D_Big, inputPoints, cameraMatrix, distCoeffs, rvec, tvec, false, cv::SOLVEPNP_ITERATIVE);
     }
 
 
@@ -265,9 +265,9 @@ void TargetSolver::coordinateTrans(cv::Point3f inputPoint)//没理解错的话�
     cv::Mat x_output(4, 1, CV_64FC1);
 
 
-    x_output.at<double>(0, 0) = inputPoint.x;
-    x_output.at<double>(1, 0) = inputPoint.y;
-    x_output.at<double>(2, 0) = inputPoint.z;
+    x_output.at<double>(0, 0) = targetPoint.x;
+    x_output.at<double>(1, 0) = targetPoint.y;
+    x_output.at<double>(2, 0) = targetPoint.z;
     x_output.at<double>(3, 0) = 1;
 
 
@@ -354,6 +354,7 @@ void TargetSolver::traceCal(void)
     double x = target.xy_plane_distance;
     double y = target.z;
     double tan_theta = 0.5;//初始值设置成0.5
+    double yaw = 0, pitch = 0;
 
     //方法一：不动点迭代，迭代5次
     // for (int i = 0; i < 5; ++i)
@@ -363,6 +364,11 @@ void TargetSolver::traceCal(void)
 
     //方法二：直接接二元一次方程
     tan_theta = (1 - sqrt(1 - 2 * 9.8 * y / (v0_small * v0_small))) * k_small * v0_small * v0_small / (m_small * 9.8 * (exp(k_small * x / m_small) - 1));//这里最开始的1 - 待定，可能是1 +
+
+    yaw = -180 * atan2(target.x, target.y) / acos(-1.0);
+    pitch = 180 * atan2(tan_theta, 1) / acos(-1.0);
+    std::cout << "yaw: " << yaw << std::endl;
+    std::cout << "pitch: " << pitch << std::endl;
 
     t_hit = m_small * (exp(k_small * x / m_small) - 1) / (k_small * v0_small * cos(atan2(tan_theta, 1)));
 
