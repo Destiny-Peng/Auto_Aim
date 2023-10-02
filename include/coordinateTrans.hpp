@@ -3,6 +3,7 @@
 #include "data.hpp"
 // #include <string>
 
+template <typename T>
 class circularQueue
 {
 public:
@@ -13,16 +14,16 @@ public:
     int length(void) const;
     bool isEmpty(void) const;
     bool isFull(void) const;
-    bool enqueue(const double &elem);
-    double dequeue(void);
-    double &get(const int &n) const;
+    bool enqueue(const T &elem);
+    T dequeue(void);
+    T &get(const int &n) const;
     bool clear(void);
     bool remove(const int &n);
 
-    double &operator[](const int &n);
+    T &operator[](const int &n);
 
 private:
-    double *arr = nullptr;
+    T *arr = nullptr;
     int front;
     int rear;
 
@@ -37,9 +38,9 @@ public:
     // bool receiveDta(void);
 
     void coordinateTrans(const cv::Point3f &targetPoint, const std::vector<cv::Point2f> &inputPoints, my_time &, my_data &); // 没理解错的话应该是Armor类调用我，即识别一个点转化一次
-    void traceCal(my_time &);
+    void traceCal(my_time &, my_data&);
 
-    void leastSquare(my_time &); // 最小二乘求最优解
+    void leastSquare(my_time &, my_data &); // 最小二乘求最优解
 
     void test(void);
 
@@ -67,14 +68,13 @@ private:
     double k_big = 4.5857E-4;
     double m_big = 0.0041;
 
-    double t_hit = 0;   // 弹丸击中装甲板所需的时间，这个不需要动
-    double t_delay = 0; // 这个是电控的控制延迟（即云台转动需要的时间），需要调
-    double delta_t = 0; // 这个是调用我的周期，一定要调！！！
+    unsigned long long int t_hit = 0;   // 弹丸击中装甲板所需的时间，这个不需要动（单位：毫秒）
+    unsigned long long int t_delay = 0; // 这个是电控的控制延迟（即云台转动需要的时间），需要调
+    //unsigned long long int delta_t = 0; // 这个是调用我的周期，一定要调！！！
 
     int queue_length = 10; // 队列长度，即最小二乘时样本的个数
 
-    circularQueue yaw_pre;
-    circularQueue pitch_pre;
+    circularQueue<pose_pack> pack_pre;
 
     double yaw_result;
     double pitch_result; // 这里用来存放最终的预测结果
@@ -103,38 +103,44 @@ private:
 //     max_size = n + 1;
 // }
 
-bool circularQueue::init(const int &n)
+template <typename T>
+bool circularQueue<T>::init(const int &n)
 {
     if (arr == 0)
-        arr = new double[n + 1];
+        arr = new T[n + 1];
     front = 0;
     rear = 0;
     max_size = n + 1;
     return 1;
 }
 
-bool circularQueue::quit(void)
+template <typename T>
+bool circularQueue<T>::quit(void)
 {
     delete[] arr;
     return 1;
 }
 
-int circularQueue::length(void) const
+template <typename T>
+int circularQueue<T>::length(void) const
 {
     return (rear - front + max_size) % max_size;
 }
 
-bool circularQueue::isEmpty(void) const
+template <typename T>
+bool circularQueue<T>::isEmpty(void) const
 {
     return rear == front;
 }
 
-bool circularQueue::isFull(void) const
+template <typename T>
+bool circularQueue<T>::isFull(void) const
 {
     return (rear + 1) % max_size == front;
 }
 
-bool circularQueue::enqueue(const double &elem)
+template <typename T>
+bool circularQueue<T>::enqueue(const T &elem)
 {
     if (isFull())
     {
@@ -149,23 +155,25 @@ bool circularQueue::enqueue(const double &elem)
     }
 }
 
-double circularQueue::dequeue(void)
+template <typename T>
+T circularQueue<T>::dequeue(void)
 {
     if (length() == 0)
     {
-        double tmp;
+        T tmp;
         return tmp;
     }
     else
     {
-        double tmp = arr[front];
+        T tmp = arr[front];
         // arr[front] = 0;
         front = (front + 1) % max_size;
         return tmp;
     }
 }
 
-double &circularQueue::operator[](const int &n)
+template <typename T>
+T &circularQueue<T>::operator[](const int &n)
 {
     // if (n + 1 >= length() || n < 0)
     // {
@@ -178,12 +186,14 @@ double &circularQueue::operator[](const int &n)
     // }
 }
 
-double &circularQueue::get(const int &n) const
+template <typename T>
+T &circularQueue<T>::get(const int &n) const
 {
     return arr[(rear + max_size - n) % max_size];
 }
 
-bool circularQueue::clear(void) // 清空
+template <typename T>
+bool circularQueue<T>::clear(void) // 清空
 {
     while (!isEmpty())
     {
@@ -192,7 +202,8 @@ bool circularQueue::clear(void) // 清空
     return 1;
 }
 
-bool circularQueue::remove(const int &n) // 删掉几个
+template <typename T>
+bool circularQueue<T>::remove(const int &n) // 删掉几个
 {
     if (n < 0)
     {
@@ -225,10 +236,8 @@ bool TargetSolver::init(void)
     target.xy_plane_distance = 0;
     target.yaw = 0;
 
-    yaw_pre.quit();
-    pitch_pre.quit();
-    yaw_pre.init(queue_length);
-    pitch_pre.init(queue_length);
+    pack_pre.quit();
+    pack_pre.init(queue_length);
     return 1;
 }
 
@@ -402,12 +411,12 @@ void TargetSolver::coordinateTrans(const cv::Point3f &targetPoint, const std::ve
     /*测试区*/
     std::cout << "大地坐标系：";
     std::cout << "x = " << x_output.at<double>(0, 0) << ", y = " << x_output.at<double>(1, 0) << ", z = " << x_output.at<double>(2, 0) << std::endl;
-    this->traceCal(mt);
+    this->traceCal(mt, data);
     data.sendTargetDataPack.pred_pitch = this->pitch_result;
     data.sendTargetDataPack.pred_yaw = this->yaw_result;
 }
 
-void TargetSolver::traceCal(my_time &mt)
+void TargetSolver::traceCal(my_time &mt, my_data& md)
 {
     double x = target.xy_plane_distance;
     double y = target.z;
@@ -428,37 +437,37 @@ void TargetSolver::traceCal(my_time &mt)
     std::cout << "yaw: " << yaw << std::endl;
     std::cout << "pitch: " << pitch << std::endl;
 
-    t_hit = m_small * (exp(k_small * x / m_small) - 1) / (k_small * v0_small * cos(atan2(tan_theta, 1)));
+    t_hit = 1000 * m_small * (exp(k_small * x / m_small) - 1) / (k_small * v0_small * cos(atan2(tan_theta, 1)));
 
-    if (!yaw_pre.isFull()) // 如果队列未满（即初始化时）
+    if (pack_pre.isFull())
     {
+        leastSquare(mt, md); // 先算一步
+        pack_pre.dequeue();
     }
-    else
-    {
-        leastSquare(mt); // 先算一步
-        yaw_pre.dequeue();
-        pitch_pre.dequeue();
-    }
-    yaw_pre.enqueue(-atan2(target.x, target.y));
-    pitch_pre.enqueue(atan2(tan_theta, 1));
+    pose_pack tmp;
+    tmp.ptz_yaw = -atan2(target.x, target.y);
+    tmp.ptz_pitch = atan2(tan_theta, 1);
+    tmp.pack_time = mt;
+    pack_pre.enqueue(tmp);
 }
 
-void TargetSolver::leastSquare(my_time &mt) // 最小二乘求最优解
+void TargetSolver::leastSquare(my_time &mt, my_data& md) // 最小二乘求最优解
 {
     double b_yaw = 0, a_yaw = 0, sigma_xy_yaw = 0, sigma_x_yaw = 0, sigma_y_yaw = 0, sigma_xx_yaw = 0;
     double b_pitch = 0, a_pitch = 0, sigma_xy_pitch = 0, sigma_x_pitch = 0, sigma_y_pitch = 0, sigma_xx_pitch = 0;
 
     for (int i = 0; i < queue_length; ++i)
     {
-        sigma_xy_yaw += i * yaw_pre[i];
-        sigma_x_yaw += i;
-        sigma_y_yaw += yaw_pre[i];
-        sigma_xx_yaw += i * i;
+        sigma_xy_yaw += pack_pre[i].pack_time.time_ms * pack_pre[i].ptz_yaw;
+        sigma_x_yaw += pack_pre[i].pack_time.time_ms;
+        sigma_y_yaw += pack_pre[i].ptz_yaw;
+        sigma_xx_yaw += pack_pre[i].pack_time.time_ms * pack_pre[i].pack_time.time_ms;
 
-        sigma_xy_pitch += i * pitch_pre[i];
-        sigma_x_pitch += i;
-        sigma_y_pitch += pitch_pre[i];
-        sigma_xx_pitch += i * i;
+        sigma_xy_pitch += pack_pre[i].pack_time.time_ms * pack_pre[i].ptz_pitch;
+        sigma_x_pitch += pack_pre[i].pack_time.time_ms;
+        sigma_y_pitch += pack_pre[i].ptz_pitch;
+        sigma_xx_pitch += pack_pre[i].pack_time.time_ms * pack_pre[i].pack_time.time_ms;
+
     }
 
     b_yaw = (sigma_xy_yaw - sigma_x_yaw * sigma_y_yaw / queue_length) / (sigma_xx_yaw - sigma_x_yaw * sigma_x_yaw / queue_length);
@@ -467,8 +476,11 @@ void TargetSolver::leastSquare(my_time &mt) // 最小二乘求最优解
     b_pitch = (sigma_xy_pitch - sigma_x_pitch * sigma_y_pitch / queue_length) / (sigma_xx_pitch - sigma_x_pitch * sigma_x_pitch / queue_length);
     a_pitch = (sigma_y_pitch - b_pitch * sigma_x_pitch) / queue_length;
 
-    yaw_result = b_yaw * (queue_length + t_hit / delta_t + t_delay / delta_t) + a_yaw;
-    pitch_result = b_pitch * (queue_length + t_hit / delta_t + t_delay / delta_t) + a_pitch;
+    // yaw_result = b_yaw * (queue_length + t_hit / delta_t + t_delay / delta_t) + a_yaw;
+    // pitch_result = b_pitch * (queue_length + t_hit / delta_t + t_delay / delta_t) + a_pitch;
+
+    yaw_result = b_yaw * (md.ts.GetTimeStamp().time_ms + t_hit + t_delay) + a_yaw;
+    pitch_result = b_pitch * (md.ts.GetTimeStamp().time_ms + t_hit + t_delay) + a_pitch;
 }
 
 void TargetSolver::test(void)
