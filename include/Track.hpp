@@ -4,9 +4,7 @@
 
 #include <iostream>
 #include <opencv2/opencv.hpp>
-#include "LightBar.h"
-#include "Armor.h"
-#include "PreProcess.h"
+#include "PreProcess.hpp"
 
 using namespace std;
 using namespace cv; 

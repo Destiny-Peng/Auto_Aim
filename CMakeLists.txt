@@ -6,7 +6,7 @@ project(communication)
 
 # 指定C++标准
 set(CMAKE_CXX_STANDARD 11)
-
+find_package(${OPENCV_REQUIRED} REQUIRED)
 # 源文件目录
 set(SRC_DIR src)
 
@@ -22,11 +22,18 @@ set(SOURCES
 set(HEADERS
   ${INCLUDE_DIR}/data.hpp
   ${INCLUDE_DIR}/serial.hpp
+  ${INCLUDE_DIR}/coordinateTrans.hpp
+  ${INCLUDE_DIR}/time_stamp.hpp
+  ${INCLUDE_DIR}/uart.hpp
+  ${INCLUDE_DIR}/Track.hpp
+  ${INCLUDE_DIR}/Preprocess.hpp
+  ${INCLUDE_DIR}/LightBar.hpp
+  ${INCLUDE_DIR}/Armor.hpp
 )
 
 # 生成可执行文件
 add_executable(communication ${SOURCES} ${HEADERS})
-target_link_libraries(communication pthread)
+target_link_libraries(communication pthread ${OPENCV_LIBS})
 
 # 指定编译参数
 target_compile_options(communication PRIVATE -Wall -Wextra -pedantic)

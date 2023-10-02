@@ -175,7 +175,7 @@ public:
     my_time GetTimeStamp()
     {
         std::lock_guard<std::mutex> lock(time_mutex);
-        gettimeofday(&(this->now_time.time_val), NULL);
+        now_time.update();
         my_time tep = this->now_time + this->time_diff;
         return tep;
     }
@@ -183,7 +183,7 @@ public:
     {
         std::lock_guard<std::mutex> lock(time_mutex);
         // printf("%ld\t%ld\n", now_time.time_ms, time_diff.time_ms);
-        my_time tep = mt - this->time_diff;
+        my_time tep = mt + this->time_diff;
         return tep;
     }
     // sigmoid 函数

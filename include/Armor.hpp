@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <opencv2/opencv.hpp>
-#include "LightBar.h"
+#include "LightBar.hpp"
 
 
 using namespace std;

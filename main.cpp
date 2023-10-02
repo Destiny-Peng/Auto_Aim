@@ -1,8 +1,5 @@
 #include <coordinateTrans.hpp>
-#include <Armor.h>
-#include <LightBar.h>
-#include <PreProcess.h>
-#include <Track.h>
+#include <Track.hpp>
 
 int main(void)
 {
