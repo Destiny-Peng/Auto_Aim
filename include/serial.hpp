@@ -5,6 +5,7 @@
 #include <sys/time.h>
 #include <deque>
 #include <mutex>
+#include "time_stamp.hpp"
 #define MAX_LEN 64
 class SerialData
 {

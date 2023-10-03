@@ -166,16 +166,16 @@ public:
                     //  获取云台pitch轴高八位低八位
                     uint8_t ptz_pitch_high8 = real_data[0];
                     uint8_t ptz_pitch_low8 = real_data[1];
-                    double ptz_pitch = ((static_cast<uint16_t>(ptz_pitch_high8) << 8) | ptz_pitch_low8) / 180.0;
+                    double ptz_pitch = (static_cast<int16_t>((static_cast<uint16_t>(ptz_pitch_high8) << 8) | ptz_pitch_low8)) / 180.0;
 
                     // 获取云台yaw轴高八位低八位
                     uint8_t ptz_yaw_high8 = real_data[2];
                     uint8_t ptz_yaw_low8 = real_data[3];
-                    double ptz_yaw = ((static_cast<uint16_t>(ptz_yaw_high8) << 8) | ptz_yaw_low8) / 180.0;
+                    double ptz_yaw = (static_cast<int16_t>((static_cast<uint16_t>(ptz_yaw_high8) << 8) | ptz_yaw_low8)) / 180.0;
                     // 获取云台roll轴高八位低八位
                     uint8_t ptz_roll_high8 = real_data[4];
                     uint8_t ptz_roll_low8 = real_data[5];
-                    double ptz_roll = ((static_cast<uint16_t>(ptz_roll_high8) << 8) | ptz_roll_low8) / 180.0;
+                    double ptz_roll = (static_cast<int16_t>((static_cast<uint16_t>(ptz_roll_high8) << 8) | ptz_roll_low8)) / 180.0;
                     // 获取当前姿态电控时刻
                     this->pose_mcu_time.ms_init(real_data[6] * 5);
                     my_time mcu_time = this->base_mcu_time + this->pose_mcu_time % 100;

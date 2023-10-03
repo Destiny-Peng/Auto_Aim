@@ -92,7 +92,6 @@ private:
     // cv::Point3f outputPoint;
 };
 
-#include <coordinateTrans.hpp>
 #include <stdio.h>
 
 // circularQueue::circularQueue(const int& n)

@@ -275,9 +275,10 @@
 // uart::~uart()
 // {
 // }
-#include "uart.hpp"
-#include <coordinateTrans.hpp>
-#include <Track.hpp>
+#include "../include/uart.hpp"
+#include "../include/coordinateTrans.hpp"
+#include "../include/Track.hpp"
+#include "../include/CamDrv.hpp"
 
 // 处理线程
 void ReceiveThread(my_data &data, uart &uart1)
@@ -317,17 +318,6 @@ void SendThread(my_data &data, uart &uart1)
         }
     }
 }
-void ImgProcessThread(my_data &data)
-{
-
-    // preprocess.drawArmor(testframe, FliteredArmors); // 绘制装甲板，对于有特殊要求的装甲板会绘制其目标编号（左上）和装甲板类型（右上）
-    // imshow("frame", testframe);
-    // tracking.track(FliteredArmors, time, 30, 100); // 第二个参数为目标失踪帧数容忍度
-    //,148,202,204,236
-    // preprocess.drawLightBar(showframe, lightbars);
-    // preprocess.drawArmor(showframe, FliteredArmors);
-    // imshow("Processed", showframe);
-}
 int main()
 {
     uart uart1;
@@ -344,10 +334,13 @@ int main()
     int time = 0;
     PreProcessing preprocess;
     Track tracking;
+    MVCamera *c = new MVCamera();
+    c->open();
     while (true)
     {
 
         Mat frame;
+        c->get_Mat(frame);
         // 取图
         my_time mt;
         vector<vector<Point>> cs = preprocess.PreProcess(frame, 57, 94, 255, 230);

@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/jacy/project/no_ros_communication
+CMAKE_SOURCE_DIR = /home/jacy/project/Auto_Aim
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/jacy/project/no_ros_communication/build
+CMAKE_BINARY_DIR = /home/jacy/project/Auto_Aim/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/communication.dir/depend.make
@@ -72,28 +72,45 @@ include CMakeFiles/communication.dir/flags.make
 CMakeFiles/communication.dir/src/communication.cpp.o: CMakeFiles/communication.dir/flags.make
 CMakeFiles/communication.dir/src/communication.cpp.o: ../src/communication.cpp
 CMakeFiles/communication.dir/src/communication.cpp.o: CMakeFiles/communication.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jacy/project/no_ros_communication/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/communication.dir/src/communication.cpp.o"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/communication.dir/src/communication.cpp.o -MF CMakeFiles/communication.dir/src/communication.cpp.o.d -o CMakeFiles/communication.dir/src/communication.cpp.o -c /home/jacy/project/no_ros_communication/src/communication.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jacy/project/Auto_Aim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/communication.dir/src/communication.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/communication.dir/src/communication.cpp.o -MF CMakeFiles/communication.dir/src/communication.cpp.o.d -o CMakeFiles/communication.dir/src/communication.cpp.o -c /home/jacy/project/Auto_Aim/src/communication.cpp
 
 CMakeFiles/communication.dir/src/communication.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/communication.dir/src/communication.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jacy/project/no_ros_communication/src/communication.cpp > CMakeFiles/communication.dir/src/communication.cpp.i
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jacy/project/Auto_Aim/src/communication.cpp > CMakeFiles/communication.dir/src/communication.cpp.i
 
 CMakeFiles/communication.dir/src/communication.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/communication.dir/src/communication.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jacy/project/no_ros_communication/src/communication.cpp -o CMakeFiles/communication.dir/src/communication.cpp.s
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jacy/project/Auto_Aim/src/communication.cpp -o CMakeFiles/communication.dir/src/communication.cpp.s
+
+CMakeFiles/communication.dir/src/CamDrv.cpp.o: CMakeFiles/communication.dir/flags.make
+CMakeFiles/communication.dir/src/CamDrv.cpp.o: ../src/CamDrv.cpp
+CMakeFiles/communication.dir/src/CamDrv.cpp.o: CMakeFiles/communication.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jacy/project/Auto_Aim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/communication.dir/src/CamDrv.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/communication.dir/src/CamDrv.cpp.o -MF CMakeFiles/communication.dir/src/CamDrv.cpp.o.d -o CMakeFiles/communication.dir/src/CamDrv.cpp.o -c /home/jacy/project/Auto_Aim/src/CamDrv.cpp
+
+CMakeFiles/communication.dir/src/CamDrv.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/communication.dir/src/CamDrv.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jacy/project/Auto_Aim/src/CamDrv.cpp > CMakeFiles/communication.dir/src/CamDrv.cpp.i
+
+CMakeFiles/communication.dir/src/CamDrv.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/communication.dir/src/CamDrv.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jacy/project/Auto_Aim/src/CamDrv.cpp -o CMakeFiles/communication.dir/src/CamDrv.cpp.s
 
 # Object files for target communication
 communication_OBJECTS = \
-"CMakeFiles/communication.dir/src/communication.cpp.o"
+"CMakeFiles/communication.dir/src/communication.cpp.o" \
+"CMakeFiles/communication.dir/src/CamDrv.cpp.o"
 
 # External object files for target communication
 communication_EXTERNAL_OBJECTS =
 
 communication: CMakeFiles/communication.dir/src/communication.cpp.o
+communication: CMakeFiles/communication.dir/src/CamDrv.cpp.o
 communication: CMakeFiles/communication.dir/build.make
+communication: /lib/libMVSDK.so
 communication: CMakeFiles/communication.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jacy/project/no_ros_communication/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable communication"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jacy/project/Auto_Aim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable communication"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/communication.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -105,6 +122,6 @@ CMakeFiles/communication.dir/clean:
 .PHONY : CMakeFiles/communication.dir/clean
 
 CMakeFiles/communication.dir/depend:
-	cd /home/jacy/project/no_ros_communication/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/jacy/project/no_ros_communication /home/jacy/project/no_ros_communication /home/jacy/project/no_ros_communication/build /home/jacy/project/no_ros_communication/build /home/jacy/project/no_ros_communication/build/CMakeFiles/communication.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/jacy/project/Auto_Aim/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/jacy/project/Auto_Aim /home/jacy/project/Auto_Aim /home/jacy/project/Auto_Aim/build /home/jacy/project/Auto_Aim/build /home/jacy/project/Auto_Aim/build/CMakeFiles/communication.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/communication.dir/depend
 

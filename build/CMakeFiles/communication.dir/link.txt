@@ -1,1 +1,1 @@
-/usr/bin/g++ -g CMakeFiles/communication.dir/src/communication.cpp.o -o communication  -lpthread 
+/usr/bin/g++ -g CMakeFiles/communication.dir/src/communication.cpp.o CMakeFiles/communication.dir/src/CamDrv.cpp.o -o communication  -lpthread /lib/libMVSDK.so 

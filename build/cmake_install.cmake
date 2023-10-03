@@ -1,4 +1,4 @@
-# Install script for directory: /home/jacy/project/no_ros_communication
+# Install script for directory: /home/jacy/project/Auto_Aim
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/jacy/project/no_ros_communication/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/jacy/project/Auto_Aim/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

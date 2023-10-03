@@ -1,6 +1,6 @@
 #include <iostream>
-#include "CamDrv.hpp"
-#include "config.h"
+#include "../include/CamDrv.hpp"
+#include "../include/config.h"
 using namespace std;
 
 bool MVCamera::open() {
@@ -59,20 +59,4 @@ void MVCamera::GrabImageCallback(CameraHandle hCamera, BYTE *pFrameBuffer,
 	//cout<<"被调用了"<<endl;
 	CameraImageProcess(hCamera, pFrameBuffer, (unsigned char*)pContext, pFrameHead);
 
-}
-int main(int argc, char **argv) {
-	cout << "Version " << CamDrv_VERSION_MAJOR << "." << CamDrv_VERSION_MINOR
-			<< endl;
-	MVCamera *c = new MVCamera();
-	c->open();
-	cv::Mat a;
-while(1){
-	c->get_Mat(a);
-	cv::imshow("src",a);
-	cv::waitKey(10);
-}
-
-
-	delete c;
-	return 0;
 }

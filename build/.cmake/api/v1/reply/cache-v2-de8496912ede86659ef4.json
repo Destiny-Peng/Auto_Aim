@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/jacy/project/no_ros_communication/build"
+			"value" : "/home/jacy/project/Auto_Aim/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -514,6 +514,10 @@
 			"properties" : 
 			[
 				{
+					"name" : "ADVANCED",
+					"value" : "1"
+				},
+				{
 					"name" : "HELPSTRING",
 					"value" : "No help, variable specified on the command line."
 				}
@@ -591,7 +595,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/jacy/project/no_ros_communication"
+			"value" : "/home/jacy/project/Auto_Aim"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1118,6 +1122,54 @@
 			"value" : "FALSE"
 		},
 		{
+			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_OpenCV",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Details about finding OpenCV"
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "[/usr/local][v4.5.5()]"
+		},
+		{
+			"name" : "OPENCV_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "The directory containing a CMake configuration file for OPENCV."
+				}
+			],
+			"type" : "PATH",
+			"value" : "OPENCV_DIR-NOTFOUND"
+		},
+		{
+			"name" : "OpenCV_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "The directory containing a CMake configuration file for OpenCV."
+				}
+			],
+			"type" : "PATH",
+			"value" : "/usr/local/lib/cmake/opencv4"
+		},
+		{
+			"name" : "REQUIRED_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "The directory containing a CMake configuration file for REQUIRED."
+				}
+			],
+			"type" : "PATH",
+			"value" : "REQUIRED_DIR-NOTFOUND"
+		},
+		{
 			"name" : "communication_BINARY_DIR",
 			"properties" : 
 			[
@@ -1127,7 +1179,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/jacy/project/no_ros_communication/build"
+			"value" : "/home/jacy/project/Auto_Aim/build"
 		},
 		{
 			"name" : "communication_IS_TOP_LEVEL",
@@ -1151,7 +1203,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/jacy/project/no_ros_communication"
+			"value" : "/home/jacy/project/Auto_Aim"
 		}
 	],
 	"kind" : "cache",

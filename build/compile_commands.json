@@ -1,7 +1,12 @@
 [
 {
-  "directory": "/home/jacy/project/no_ros_communication/build",
-  "command": "/usr/bin/g++   -g -Wall -Wextra -pedantic -std=gnu++11 -o CMakeFiles/communication.dir/src/communication.cpp.o -c /home/jacy/project/no_ros_communication/src/communication.cpp",
-  "file": "/home/jacy/project/no_ros_communication/src/communication.cpp"
+  "directory": "/home/jacy/project/Auto_Aim/build",
+  "command": "/usr/bin/g++  -I/usr/local/include/opencv4 -g -Wall -Wextra -pedantic -std=gnu++11 -o CMakeFiles/communication.dir/src/communication.cpp.o -c /home/jacy/project/Auto_Aim/src/communication.cpp",
+  "file": "/home/jacy/project/Auto_Aim/src/communication.cpp"
+},
+{
+  "directory": "/home/jacy/project/Auto_Aim/build",
+  "command": "/usr/bin/g++  -I/usr/local/include/opencv4 -g -Wall -Wextra -pedantic -std=gnu++11 -o CMakeFiles/communication.dir/src/CamDrv.cpp.o -c /home/jacy/project/Auto_Aim/src/CamDrv.cpp",
+  "file": "/home/jacy/project/Auto_Aim/src/CamDrv.cpp"
 }
 ]
