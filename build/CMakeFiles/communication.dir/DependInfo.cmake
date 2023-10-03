@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/jacy/project/Auto_Aim/src/CamDrv.cpp" "CMakeFiles/communication.dir/src/CamDrv.cpp.o" "gcc" "CMakeFiles/communication.dir/src/CamDrv.cpp.o.d"
-  "/home/jacy/project/Auto_Aim/src/communication.cpp" "CMakeFiles/communication.dir/src/communication.cpp.o" "gcc" "CMakeFiles/communication.dir/src/communication.cpp.o.d"
+  "/home/zwh/myStudies/opencv/exercise/git/Auto_Aim/src/CamDrv.cpp" "CMakeFiles/communication.dir/src/CamDrv.cpp.o" "gcc" "CMakeFiles/communication.dir/src/CamDrv.cpp.o.d"
+  "/home/zwh/myStudies/opencv/exercise/git/Auto_Aim/src/communication.cpp" "CMakeFiles/communication.dir/src/communication.cpp.o" "gcc" "CMakeFiles/communication.dir/src/communication.cpp.o.d"
   )
 
 # Targets to which this target links.

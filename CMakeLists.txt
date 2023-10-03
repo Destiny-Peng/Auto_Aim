@@ -36,10 +36,15 @@ set(OPENCV_DIR /usr/local/lib/)
 # configure_file(config.h.in config.h)
 find_package(OpenCV REQUIRED)
 # 生成可执行文件
-include_directories(${OpenCV_INCLUDE_DIRS})
+
+
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
+target_link_libraries(communication ${OpenCV_LIBS})
 target_link_libraries(${PROJECT_NAME} pthread ${OPENCV_LIBS} /lib/libMVSDK.so)
+
+target_include_directories(communication PUBLIC ${OpenCV_INCLUDE_DIRS}/.)
+include_directories(${OpenCV_INCLUDE_DIRS})
 
 # 指定编译参数
 target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -pedantic)

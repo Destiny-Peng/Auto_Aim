@@ -1,8 +1,9 @@
 CMakeFiles/communication.dir/src/communication.cpp.o: \
- /home/jacy/project/Auto_Aim/src/communication.cpp \
+ /home/zwh/myStudies/opencv/exercise/git/Auto_Aim/src/communication.cpp \
  /usr/include/stdc-predef.h \
- /home/jacy/project/Auto_Aim/src/../include/uart.hpp /usr/include/fcntl.h \
- /usr/include/features.h /usr/include/features-time64.h \
+ /home/zwh/myStudies/opencv/exercise/git/Auto_Aim/src/../include/uart.hpp \
+ /usr/include/fcntl.h /usr/include/features.h \
+ /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
  /usr/include/x86_64-linux-gnu/bits/timesize.h \
  /usr/include/x86_64-linux-gnu/sys/cdefs.h \
@@ -182,7 +183,7 @@ CMakeFiles/communication.dir/src/communication.cpp.o: \
  /usr/include/c++/11/bits/std_thread.h /usr/include/c++/11/bits/refwrap.h \
  /usr/include/c++/11/bits/unique_ptr.h \
  /usr/include/c++/11/bits/this_thread_sleep.h \
- /home/jacy/project/Auto_Aim/src/../include/data.hpp \
+ /home/zwh/myStudies/opencv/exercise/git/Auto_Aim/src/../include/data.hpp \
  /usr/include/c++/11/math.h /usr/include/c++/11/cmath /usr/include/math.h \
  /usr/include/x86_64-linux-gnu/bits/math-vector.h \
  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
@@ -193,16 +194,16 @@ CMakeFiles/communication.dir/src/communication.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
  /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
  /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
- /home/jacy/project/Auto_Aim/src/../include/serial.hpp \
+ /home/zwh/myStudies/opencv/exercise/git/Auto_Aim/src/../include/serial.hpp \
  /usr/include/c++/11/cstring /usr/include/string.h /usr/include/strings.h \
  /usr/include/x86_64-linux-gnu/sys/time.h /usr/include/c++/11/deque \
  /usr/include/c++/11/bits/stl_uninitialized.h \
  /usr/include/c++/11/bits/stl_deque.h /usr/include/c++/11/bits/deque.tcc \
- /home/jacy/project/Auto_Aim/src/../include/time_stamp.hpp \
+ /home/zwh/myStudies/opencv/exercise/git/Auto_Aim/src/../include/time_stamp.hpp \
  /usr/include/c++/11/vector /usr/include/c++/11/bits/stl_vector.h \
  /usr/include/c++/11/bits/stl_bvector.h \
  /usr/include/c++/11/bits/vector.tcc \
- /home/jacy/project/Auto_Aim/src/../include/coordinateTrans.hpp \
+ /home/zwh/myStudies/opencv/exercise/git/Auto_Aim/src/../include/coordinateTrans.hpp \
  /usr/local/include/opencv4/opencv2/opencv.hpp \
  /usr/local/include/opencv4/opencv2/opencv_modules.hpp \
  /usr/local/include/opencv4/opencv2/core.hpp \
@@ -292,7 +293,7 @@ CMakeFiles/communication.dir/src/communication.cpp.o: \
  /usr/local/include/opencv4/opencv2/dnn.hpp \
  /usr/local/include/opencv4/opencv2/dnn/dnn.hpp \
  /usr/local/include/opencv4/opencv2/core/async.hpp \
- /usr/local/include/opencv4/opencv2/dnn/../dnn/version.hpp \
+ /usr/local/include/opencv4/opencv2/dnn/version.hpp \
  /usr/local/include/opencv4/opencv2/dnn/dict.hpp /usr/include/c++/11/map \
  /usr/include/c++/11/bits/stl_tree.h /usr/include/c++/11/bits/stl_map.h \
  /usr/include/c++/11/bits/stl_multimap.h \
@@ -300,7 +301,7 @@ CMakeFiles/communication.dir/src/communication.cpp.o: \
  /usr/local/include/opencv4/opencv2/dnn/layer.hpp \
  /usr/local/include/opencv4/opencv2/dnn/dnn.inl.hpp \
  /usr/local/include/opencv4/opencv2/dnn/utils/inference_engine.hpp \
- /usr/local/include/opencv4/opencv2/dnn/utils/../dnn.hpp \
+ /usr/local/include/opencv4/opencv2/dnn/dnn.hpp \
  /usr/local/include/opencv4/opencv2/flann.hpp \
  /usr/local/include/opencv4/opencv2/flann/flann_base.hpp \
  /usr/local/include/opencv4/opencv2/flann/general.h \
@@ -319,10 +320,6 @@ CMakeFiles/communication.dir/src/communication.cpp.o: \
  /usr/local/include/opencv4/opencv2/flann/dynamic_bitset.h \
  /usr/local/include/opencv4/opencv2/flann/dist.h \
  /usr/local/include/opencv4/opencv2/flann/heap.h \
- /usr/include/c++/11/unordered_map /usr/include/c++/11/bits/hashtable.h \
- /usr/include/c++/11/bits/hashtable_policy.h \
- /usr/include/c++/11/bits/enable_special_members.h \
- /usr/include/c++/11/bits/unordered_map.h \
  /usr/local/include/opencv4/opencv2/flann/allocator.h \
  /usr/local/include/opencv4/opencv2/flann/random.h \
  /usr/local/include/opencv4/opencv2/flann/kdtree_single_index.h \
@@ -339,7 +336,11 @@ CMakeFiles/communication.dir/src/communication.cpp.o: \
  /usr/include/x86_64-linux-gnu/c++/11/bits/messages_members.h \
  /usr/include/libintl.h /usr/include/c++/11/bits/codecvt.h \
  /usr/include/c++/11/bits/locale_facets_nonio.tcc \
- /usr/include/c++/11/bits/locale_conv.h \
+ /usr/include/c++/11/bits/locale_conv.h /usr/include/c++/11/unordered_map \
+ /usr/include/c++/11/bits/hashtable.h \
+ /usr/include/c++/11/bits/hashtable_policy.h \
+ /usr/include/c++/11/bits/enable_special_members.h \
+ /usr/include/c++/11/bits/unordered_map.h \
  /usr/local/include/opencv4/opencv2/flann/autotuned_index.h \
  /usr/local/include/opencv4/opencv2/flann/ground_truth.h \
  /usr/local/include/opencv4/opencv2/flann/index_testing.h \
@@ -349,12 +350,11 @@ CMakeFiles/communication.dir/src/communication.cpp.o: \
  /usr/local/include/opencv4/opencv2/imgcodecs.hpp \
  /usr/local/include/opencv4/opencv2/videoio.hpp \
  /usr/local/include/opencv4/opencv2/imgproc.hpp \
- /usr/local/include/opencv4/opencv2/./imgproc/segmentation.hpp \
+ /usr/local/include/opencv4/opencv2/imgproc/segmentation.hpp \
  /usr/local/include/opencv4/opencv2/ml.hpp \
  /usr/local/include/opencv4/opencv2/ml/ml.inl.hpp \
  /usr/local/include/opencv4/opencv2/objdetect.hpp \
  /usr/local/include/opencv4/opencv2/objdetect/detection_based_tracker.hpp \
- /usr/local/include/opencv4/opencv2/objdetect/face.hpp \
  /usr/local/include/opencv4/opencv2/photo.hpp \
  /usr/local/include/opencv4/opencv2/stitching.hpp \
  /usr/local/include/opencv4/opencv2/stitching/warpers.hpp \
@@ -380,10 +380,10 @@ CMakeFiles/communication.dir/src/communication.cpp.o: \
  /usr/local/include/opencv4/opencv2/video.hpp \
  /usr/local/include/opencv4/opencv2/video/tracking.hpp \
  /usr/local/include/opencv4/opencv2/video/background_segm.hpp \
- /home/jacy/project/Auto_Aim/src/../include/Track.hpp \
- /home/jacy/project/Auto_Aim/src/../include/PreProcess.hpp \
- /home/jacy/project/Auto_Aim/src/../include/Armor.hpp \
- /home/jacy/project/Auto_Aim/src/../include/LightBar.hpp \
- /home/jacy/project/Auto_Aim/src/../include/CamDrv.hpp \
+ /home/zwh/myStudies/opencv/exercise/git/Auto_Aim/src/../include/Track.hpp \
+ /home/zwh/myStudies/opencv/exercise/git/Auto_Aim/src/../include/PreProcess.hpp \
+ /home/zwh/myStudies/opencv/exercise/git/Auto_Aim/src/../include/Armor.hpp \
+ /home/zwh/myStudies/opencv/exercise/git/Auto_Aim/src/../include/LightBar.hpp \
+ /home/zwh/myStudies/opencv/exercise/git/Auto_Aim/src/../include/CamDrv.hpp \
  /usr/include/CameraApi.h /usr/include/CameraDefine.h \
  /usr/include/CameraStatus.h

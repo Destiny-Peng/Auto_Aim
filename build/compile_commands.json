@@ -1,12 +1,12 @@
 [
 {
-  "directory": "/home/jacy/project/Auto_Aim/build",
-  "command": "/usr/bin/g++  -I/usr/local/include/opencv4 -g -Wall -Wextra -pedantic -std=gnu++11 -o CMakeFiles/communication.dir/src/communication.cpp.o -c /home/jacy/project/Auto_Aim/src/communication.cpp",
-  "file": "/home/jacy/project/Auto_Aim/src/communication.cpp"
+  "directory": "/home/zwh/myStudies/opencv/exercise/git/Auto_Aim/build",
+  "command": "/usr/bin/g++  -I/usr/local/include/opencv4/. -isystem /usr/local/include/opencv4 -g -Wall -Wextra -pedantic -std=gnu++11 -o CMakeFiles/communication.dir/src/communication.cpp.o -c /home/zwh/myStudies/opencv/exercise/git/Auto_Aim/src/communication.cpp",
+  "file": "/home/zwh/myStudies/opencv/exercise/git/Auto_Aim/src/communication.cpp"
 },
 {
-  "directory": "/home/jacy/project/Auto_Aim/build",
-  "command": "/usr/bin/g++  -I/usr/local/include/opencv4 -g -Wall -Wextra -pedantic -std=gnu++11 -o CMakeFiles/communication.dir/src/CamDrv.cpp.o -c /home/jacy/project/Auto_Aim/src/CamDrv.cpp",
-  "file": "/home/jacy/project/Auto_Aim/src/CamDrv.cpp"
+  "directory": "/home/zwh/myStudies/opencv/exercise/git/Auto_Aim/build",
+  "command": "/usr/bin/g++  -I/usr/local/include/opencv4/. -isystem /usr/local/include/opencv4 -g -Wall -Wextra -pedantic -std=gnu++11 -o CMakeFiles/communication.dir/src/CamDrv.cpp.o -c /home/zwh/myStudies/opencv/exercise/git/Auto_Aim/src/CamDrv.cpp",
+  "file": "/home/zwh/myStudies/opencv/exercise/git/Auto_Aim/src/CamDrv.cpp"
 }
 ]

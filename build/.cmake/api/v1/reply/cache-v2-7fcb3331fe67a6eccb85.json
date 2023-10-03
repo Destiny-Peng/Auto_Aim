@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/jacy/project/Auto_Aim/build"
+			"value" : "/home/zwh/myStudies/opencv/exercise/git/Auto_Aim/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -155,10 +155,10 @@
 				},
 				{
 					"name" : "HELPSTRING",
-					"value" : "No help, variable specified on the command line."
+					"value" : "CXX compiler"
 				}
 			],
-			"type" : "FILEPATH",
+			"type" : "STRING",
 			"value" : "/usr/bin/g++"
 		},
 		{
@@ -283,10 +283,10 @@
 				},
 				{
 					"name" : "HELPSTRING",
-					"value" : "No help, variable specified on the command line."
+					"value" : "C compiler"
 				}
 			],
-			"type" : "FILEPATH",
+			"type" : "STRING",
 			"value" : "/usr/bin/gcc"
 		},
 		{
@@ -418,6 +418,18 @@
 			"value" : "CMAKE_DLLTOOL-NOTFOUND"
 		},
 		{
+			"name" : "CMAKE_EDIT_COMMAND",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to cache edit program executable."
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "/usr/bin/cmake-gui"
+		},
+		{
 			"name" : "CMAKE_EXECUTABLE_FORMAT",
 			"properties" : 
 			[
@@ -514,10 +526,6 @@
 			"properties" : 
 			[
 				{
-					"name" : "ADVANCED",
-					"value" : "1"
-				},
-				{
 					"name" : "HELPSTRING",
 					"value" : "No help, variable specified on the command line."
 				}
@@ -595,7 +603,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/jacy/project/Auto_Aim"
+			"value" : "/home/zwh/myStudies/opencv/exercise/git/Auto_Aim"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1131,19 +1139,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "[/usr/local][v4.5.5()]"
-		},
-		{
-			"name" : "OPENCV_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "The directory containing a CMake configuration file for OPENCV."
-				}
-			],
-			"type" : "PATH",
-			"value" : "OPENCV_DIR-NOTFOUND"
+			"value" : "[/usr/local][v4.5.3()]"
 		},
 		{
 			"name" : "OpenCV_DIR",
@@ -1158,18 +1154,6 @@
 			"value" : "/usr/local/lib/cmake/opencv4"
 		},
 		{
-			"name" : "REQUIRED_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "The directory containing a CMake configuration file for REQUIRED."
-				}
-			],
-			"type" : "PATH",
-			"value" : "REQUIRED_DIR-NOTFOUND"
-		},
-		{
 			"name" : "communication_BINARY_DIR",
 			"properties" : 
 			[
@@ -1179,7 +1163,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/jacy/project/Auto_Aim/build"
+			"value" : "/home/zwh/myStudies/opencv/exercise/git/Auto_Aim/build"
 		},
 		{
 			"name" : "communication_IS_TOP_LEVEL",
@@ -1203,7 +1187,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/jacy/project/Auto_Aim"
+			"value" : "/home/zwh/myStudies/opencv/exercise/git/Auto_Aim"
 		}
 	],
 	"kind" : "cache",

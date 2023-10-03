@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "communication::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-communication-Debug-c9ff3f75f885131b346a.json",
+					"jsonFile" : "target-communication-Debug-f87d87e1a9da2ab07d13.json",
 					"name" : "communication",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/jacy/project/Auto_Aim/build",
-		"source" : "/home/jacy/project/Auto_Aim"
+		"build" : "/home/zwh/myStudies/opencv/exercise/git/Auto_Aim/build",
+		"source" : "/home/zwh/myStudies/opencv/exercise/git/Auto_Aim"
 	},
 	"version" : 
 	{
