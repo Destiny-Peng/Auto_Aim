@@ -1,0 +1,3 @@
+/home/reisenredeyes/file/CamDrv/build/CMakeFiles/CamDrv.dir
+/home/reisenredeyes/file/CamDrv/build/CMakeFiles/edit_cache.dir
+/home/reisenredeyes/file/CamDrv/build/CMakeFiles/rebuild_cache.dir
