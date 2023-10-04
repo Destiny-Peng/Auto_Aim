@@ -1,8 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/communication.dir/src/CamDrv.cpp.o"
-  "CMakeFiles/communication.dir/src/CamDrv.cpp.o.d"
   "CMakeFiles/communication.dir/src/communication.cpp.o"
-  "CMakeFiles/communication.dir/src/communication.cpp.o.d"
   "communication"
   "communication.pdb"
 )

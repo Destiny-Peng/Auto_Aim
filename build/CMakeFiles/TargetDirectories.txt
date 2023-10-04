@@ -1,3 +1,3 @@
-/home/zwh/myStudies/opencv/exercise/git/Auto_Aim/build/CMakeFiles/communication.dir
-/home/zwh/myStudies/opencv/exercise/git/Auto_Aim/build/CMakeFiles/edit_cache.dir
-/home/zwh/myStudies/opencv/exercise/git/Auto_Aim/build/CMakeFiles/rebuild_cache.dir
+/home/dji/projects/PYR/Auto_Aim/build/CMakeFiles/rebuild_cache.dir
+/home/dji/projects/PYR/Auto_Aim/build/CMakeFiles/edit_cache.dir
+/home/dji/projects/PYR/Auto_Aim/build/CMakeFiles/communication.dir
