@@ -122,7 +122,7 @@ public:
 		Point2f dst[4] = {{0.0,0.0},{640.0,0.0},{640.0,480.0},{0.0,480.0}};
 		Mat matrix = getPerspectiveTransform(src,dst);
 		warpPerspective(input,imgwarp,matrix,Point(640,480));
-		imshow("warp",imgwarp);
+		// imshow("warp",imgwarp);
 	}
 
 	double Score(){

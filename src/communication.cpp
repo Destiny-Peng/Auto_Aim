@@ -20,24 +20,34 @@ void SendThread(my_data &data, uart &uart1)
 {
     while (true)
     {
-        pose_pack pose;
+        // printf("entre\n");
+        // pose_pack pose;
         unsigned long long delta_time = data.ts.GetTimeStamp().time_us;
         // uint8_t tep[10] = {0x00};
         // write(uart1.fd, tep, 10);
-        if (data.write_pack(pose))
+        if (data.sendFlagPack.target_found)
         {
+            if (data.write_pack(data.tep))
+            {
+                uart1.my_write(data);
+            }
+        }
+        else
+        {
+            pose_pack tep;
+            if(data.write_pack(tep))
             uart1.my_write(data);
-            delta_time = data.ts.GetTimeStamp().time_us - delta_time;
-            // printf("%ld\n",delta_time);
-            // printf("%ld\n",data.ts.GetTimeStamp().time_ms);
-            if (delta_time < 20000)
-            {
-                usleep(20000 - delta_time);
-            }
-            else
-            {
-                usleep(20000);
-            }
+        }
+        delta_time = data.ts.GetTimeStamp().time_us - delta_time;
+        // printf("%ld\n",delta_time);
+        // printf("%ld\n",data.ts.GetTimeStamp().time_ms);
+        if (delta_time < 20000)
+        {
+            usleep(20000 - delta_time);
+        }
+        else
+        {
+            usleep(20000);
         }
     }
 }
@@ -57,12 +67,15 @@ int main()
     PreProcessing preprocess;
     Track tracking;
     MVCamera *c = new MVCamera();
-    c->open();
+    std::string path = "../config/camera.yaml";
+    c->load_param(path); // 加载参数
+    c->open();           // 打开摄像头
     while (true)
     {
-
         Mat frame;
         c->get_Mat(frame);
+        cv::imshow("src", frame);
+        cv::waitKey(5);
         // 取图
         // cv::imshow("test",frame);
         my_time mt;
@@ -86,9 +99,13 @@ int main()
                     i_max = i;
                 }
             }
-
+            test.sendFlagPack.target_found = true;
             // std::cout << FliteredArmors[i_max].getPoints() << std::endl;
-            ts.coordinateTrans(cv::Point3f(0, 0, 0), FliteredArmors[i_max].getPoints(), mt, test);
+            test.tep = ts.coordinateTrans(cv::Point3f(0, 0, 0), FliteredArmors[i_max].getPoints(), mt, test);
+        }
+        else
+        {
+            test.sendFlagPack.target_found = false;
         }
     }
 

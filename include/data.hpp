@@ -8,23 +8,23 @@
 
 struct Send_Flag_Pack
 {
-    bool target_found;
-    bool fire;
-    bool burstShoot;
-    bool exitRune;
-    bool rune_fire;
-    bool rune_burst_shoot;
-    bool isProgramWorkingProperly;
-    uint8_t mode;
-    uint16_t pitch_resolution;
-    uint16_t yaw_resolution;
+    bool target_found = false;
+    bool fire = false;
+    bool burstShoot = false;
+    bool exitRune = false;
+    bool rune_fire = false;
+    bool rune_burst_shoot = false;
+    bool isProgramWorkingProperly = true;
+    uint8_t mode = 0x01;
+    uint16_t pitch_resolution = 1000;
+    uint16_t yaw_resolution = 1000;
 };
 
 struct Send_Target_Data_Pack
 {
     uint8_t send_digit;
-    uint16_t pred_pitch;
-    uint16_t pred_yaw;
+    int16_t pred_pitch;
+    int16_t pred_yaw;
     uint8_t pitch_palstance = 0;
     uint8_t yaw_palstance = 0;
 };
@@ -85,7 +85,7 @@ public:
 pose_pack::pose_pack(/* args */)
 {
     pack_time.update();
-    this->ptz_pitch = 10 * sin(3.14 * this->pack_time.time_ms / 1000) + 10;
+    this->ptz_pitch = 0;
     this->ptz_yaw = 0;
     this->ptz_roll = 0;
 }
@@ -109,6 +109,7 @@ public:
     bool isRightMouseButtonPressing = false;
     bool fired = false;
     bool request_fire = false;
+    pose_pack tep;
     Send_Flag_Pack sendFlagPack;
     Send_Target_Data_Pack sendTargetDataPack;
     ThreadSafeDeque<pose_pack> pose_pack_queue;
@@ -178,6 +179,9 @@ public:
                     // 获取当前姿态电控时刻
                     this->pose_mcu_time.ms_init(real_data[6] * 5);
                     my_time mcu_time = this->base_mcu_time + this->pose_mcu_time % 100;
+                    // printf("%ld\t%ld\t%ld\n",mcu_time.time_ms,this->ts.GetTimeDiff().time_ms,this->ts.GetTimeStamp().time_ms);
+                    // printf("%ld\t", mcu_time.time_ms);
+
                     // 取姿态包的十位和个位，取对时包的其他位
                     // 维护队列长度
                     pose_pack_queue.updata_size(); // bug here
@@ -192,9 +196,11 @@ public:
                     uint8_t base_mcu_time_mid8 = real_data[1];
                     uint8_t base_mcu_time_high8 = real_data[2];
                     this->base_mcu_time.ms_init(((static_cast<uint32_t>(base_mcu_time_high8) << 16) | (static_cast<uint32_t>(base_mcu_time_mid8) << 8) | base_mcu_time_low8) * 100);
+                    // printf("%ld\t%ld\t%ld\n",this->base_mcu_time.time_ms,this->ts.GetTimeDiff().time_ms,this->ts.GetTimeStamp().time_ms);
                     ts.UpdateTimeDiff(this->base_mcu_time);
                     // 获取自瞄模式的高四位
                     this->mode = real_data[3] & 0x0f;
+                    // printf("%d\n",this->mode);
                     // 获取子弹速度的高四位低八位
                     uint8_t bullet_speed_high4 = real_data[3] & 0xf0;
                     uint8_t bullet_speed_low8 = real_data[4];
@@ -239,9 +245,12 @@ public:
 
         this->sendTargetDataPack.pred_yaw = pose.ptz_yaw * 180.0;
         this->sendTargetDataPack.pred_pitch = pose.ptz_pitch * 180.0;
+        // printf("%lf\t%lf\n", pose.ptz_yaw,pose.ptz_pitch);
+
         my_time mt;
         mt = this->ts.GetTimeStamp(mt);
         this->sendTargetDataPack.send_digit = mt.time_ms % 1000 / 10;
+        // printf("%d\t%d\t%d\n", this->sendTargetDataPack.pred_yaw, this->sendTargetDataPack.pred_pitch, this->sendTargetDataPack.send_digit);
         uint8_t type = 2;
         if (this->sendFlagPack.target_found)
         {
@@ -258,9 +267,10 @@ public:
             len = 15;
             type = 3;
         }
-
+        // printf("%ld\n", mt.time_ms);
         SerialData pack((uint8_t *)origin, len, type, mt);
         this->SendQueue.push_front(pack);
+        this->sendFlagPack.target_found = 0;
         return 1;
     }
     pose_pack get_info(my_time mt)
@@ -268,9 +278,12 @@ public:
         std::lock_guard<std::mutex> lock(data_mtx);
         pose_pack pack1, pack2;
         pack1 = pose_pack_queue.front();
+        // printf("%ld\n",pack1.pack_time.time_ms);
         pack2 = pose_pack_queue.second();
+        // printf("%ld\n",pack2.pack_time.time_ms);
         pose_pack pack = pack1 - pack2;
         unsigned long long delta_time = pack1.pack_time.time_ms - pack2.pack_time.time_ms;
+        // printf("%ld\n",delta_time);
         pack = (pack / delta_time) * (mt.time_ms - pack2.pack_time.time_ms);
         pack.pack_time = mt;
         return pack;

@@ -169,6 +169,7 @@ public:
     void my_write(my_data &data)
     {
         // lock_guard<mutex> lock(mtx_uart);
+
         SerialData pack = data.SendQueue.front();
         data.SendQueue.pop_front();
         while (true)
@@ -209,7 +210,7 @@ public:
                             this->write_buf[4 + this->length_flag + this->length_target] = 0xFC;
                             this->length_target++;
                         }
-                        this->write_buf[this->length_target + this->length_flag] = pack.storage[i];
+                        this->write_buf[4 + this->length_target + this->length_flag] = pack.storage[i];
                         this->length_target++;
                     }
                 }
@@ -230,7 +231,7 @@ public:
                     this->write_buf[0] = 0xFC;
                     this->write_buf[1] = this->length_flag & 0xff;
                     this->write_buf[this->length_flag + 2] = 0xFC;
-                    this->write_buf[this->length_flag + 3] = (this->length_target | 0x80) & 0xff;
+                    this->write_buf[this->length_flag + 3] = this->length_target | 0x80 & 0xff;
                 }
                 this->state_write = SEND;
             }
@@ -238,19 +239,23 @@ public:
             {
                 if (pack.pack_type == 2)
                 {
+                    write(this->fd, this->write_buf, this->length_flag + 2);
                     for (int i = 0; i < this->length_flag + this->length_target + 2; i++)
                     {
+                        printf("%x ", this->write_buf[i]);
                         this->write_buf[i] = 0x00;
                     }
-                    write(this->fd, this->write_buf, this->length_flag + 2);
+                    printf("\n");
                 }
                 else if (pack.pack_type == 3)
                 {
                     write(this->fd, this->write_buf, this->length_flag + this->length_target + 4);
                     for (int i = 0; i < this->length_flag + this->length_target + 4; i++)
                     {
+                        printf("%x ", this->write_buf[i]);
                         this->write_buf[i] = 0x00;
                     }
+                    printf("\n");
                 }
                 this->length_flag = 0;
                 this->length_target = 0;

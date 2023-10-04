@@ -19,6 +19,10 @@ CameraApi.h
 /home/dji/projects/PYR/Auto_Aim/include/CameraApi.h
 opencv2/opencv.hpp
 -
+config.h
+/home/dji/projects/PYR/Auto_Aim/include/config.h
+cstring
+-
 iostream
 -
 
@@ -45,6 +49,8 @@ opencv2/opencv.hpp
 -
 PreProcess.hpp
 /home/dji/projects/PYR/Auto_Aim/include/PreProcess.hpp
+
+/home/dji/projects/PYR/Auto_Aim/include/config.h
 
 /home/dji/projects/PYR/Auto_Aim/include/coordinateTrans.hpp
 opencv2/opencv.hpp
@@ -599,8 +605,6 @@ kdtree_index.h
 /usr/local/include/opencv4/opencv2/flann/kdtree_index.h
 kmeans_index.h
 /usr/local/include/opencv4/opencv2/flann/kmeans_index.h
-
-/usr/local/include/opencv4/opencv2/flann/config.h
 
 /usr/local/include/opencv4/opencv2/flann/defines.h
 config.h

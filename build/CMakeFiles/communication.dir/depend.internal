@@ -54,7 +54,6 @@ CMakeFiles/communication.dir/src/CamDrv.cpp.o
  /usr/local/include/opencv4/opencv2/flann/any.h
  /usr/local/include/opencv4/opencv2/flann/autotuned_index.h
  /usr/local/include/opencv4/opencv2/flann/composite_index.h
- /usr/local/include/opencv4/opencv2/flann/config.h
  /usr/local/include/opencv4/opencv2/flann/defines.h
  /usr/local/include/opencv4/opencv2/flann/dist.h
  /usr/local/include/opencv4/opencv2/flann/dynamic_bitset.h
@@ -113,6 +112,7 @@ CMakeFiles/communication.dir/src/communication.cpp.o
  /home/dji/projects/PYR/Auto_Aim/include/LightBar.hpp
  /home/dji/projects/PYR/Auto_Aim/include/PreProcess.hpp
  /home/dji/projects/PYR/Auto_Aim/include/Track.hpp
+ /home/dji/projects/PYR/Auto_Aim/include/config.h
  /home/dji/projects/PYR/Auto_Aim/include/coordinateTrans.hpp
  /home/dji/projects/PYR/Auto_Aim/include/data.hpp
  /home/dji/projects/PYR/Auto_Aim/include/serial.hpp
@@ -168,7 +168,6 @@ CMakeFiles/communication.dir/src/communication.cpp.o
  /usr/local/include/opencv4/opencv2/flann/any.h
  /usr/local/include/opencv4/opencv2/flann/autotuned_index.h
  /usr/local/include/opencv4/opencv2/flann/composite_index.h
- /usr/local/include/opencv4/opencv2/flann/config.h
  /usr/local/include/opencv4/opencv2/flann/defines.h
  /usr/local/include/opencv4/opencv2/flann/dist.h
  /usr/local/include/opencv4/opencv2/flann/dynamic_bitset.h

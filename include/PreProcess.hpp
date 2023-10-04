@@ -57,10 +57,10 @@ public:
 		inRange(grayImage, grey, greymax, binaryImageG);
 		threshold(binaryImageG & binaryImageR, binaryImage, thereshold, 255, THRESH_BINARY);
 		dilate(binaryImage, imgdilate, kernal);
-		imshow("imgdilate", binaryImage);
+		// imshow("imgdilate", binaryImage);
 		vector<vector<Point>> cs = getContours(imgdilate);
 		contourimg = DrawContours(input, cs);
-		imshow("contourimg", contourimg);
+		// imshow("contourimg", contourimg);
 		dilate(contourimg, newcontours, kernal2);
 		vector<vector<Point>> cs2 = getContours(newcontours);
 		ProcessedImage = DrawContours(input, cs2);

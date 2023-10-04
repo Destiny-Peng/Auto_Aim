@@ -103,15 +103,15 @@ public:
     deque_.pop_back();
   }
   // 返回第二个元素
-  const T &second()
+  T second()
   {
-
     std::lock_guard<std::mutex> lock(mutex_);
 
     // 如果容器少于两个元素,返回默认元素
     if (deque_.size() < 2)
     {
-      return deque_.front();
+      printf("%d\n",deque_.size());
+      return T();
     }
 
     // 保留第一个元素
@@ -124,6 +124,7 @@ public:
     // 恢复原顺序
     deque_.push_front(front1);
 
+    // printf("%ld\n",front2.pack_time.time_ms);
     return front2;
   }
   void updata_size()

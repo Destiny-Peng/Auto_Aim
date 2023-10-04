@@ -176,14 +176,14 @@ public:
     {
         std::lock_guard<std::mutex> lock(time_mutex);
         now_time.update();
-        my_time tep = this->now_time + this->time_diff;
+        my_time tep = this->now_time - this->time_diff;
         return tep;
     }
     my_time GetTimeStamp(my_time &mt)
     {
         std::lock_guard<std::mutex> lock(time_mutex);
         // printf("%ld\t%ld\n", now_time.time_ms, time_diff.time_ms);
-        my_time tep = mt + this->time_diff;
+        my_time tep = mt - this->time_diff;
         return tep;
     }
     // sigmoid 函数
@@ -206,6 +206,7 @@ public:
             this->time_diff = tep * this->sigmoid(i, this->k) + this->time_diff * (1 - this->sigmoid(i, this->k));
         }
         time_diff_his.push_back(this->time_diff);
+        // printf("%ld\t%ld\t%ld\n",this->time_diff.time_ms,this->now_time.time_ms,this->mcu_time.time_ms);
     }
     my_time GetTimeDiff()
     {

@@ -53,7 +53,6 @@ CMakeFiles/communication.dir/src/CamDrv.cpp.o: /usr/local/include/opencv4/opencv
 CMakeFiles/communication.dir/src/CamDrv.cpp.o: /usr/local/include/opencv4/opencv2/flann/any.h
 CMakeFiles/communication.dir/src/CamDrv.cpp.o: /usr/local/include/opencv4/opencv2/flann/autotuned_index.h
 CMakeFiles/communication.dir/src/CamDrv.cpp.o: /usr/local/include/opencv4/opencv2/flann/composite_index.h
-CMakeFiles/communication.dir/src/CamDrv.cpp.o: /usr/local/include/opencv4/opencv2/flann/config.h
 CMakeFiles/communication.dir/src/CamDrv.cpp.o: /usr/local/include/opencv4/opencv2/flann/defines.h
 CMakeFiles/communication.dir/src/CamDrv.cpp.o: /usr/local/include/opencv4/opencv2/flann/dist.h
 CMakeFiles/communication.dir/src/CamDrv.cpp.o: /usr/local/include/opencv4/opencv2/flann/dynamic_bitset.h
@@ -112,6 +111,7 @@ CMakeFiles/communication.dir/src/communication.cpp.o: ../include/CamDrv.hpp
 CMakeFiles/communication.dir/src/communication.cpp.o: ../include/LightBar.hpp
 CMakeFiles/communication.dir/src/communication.cpp.o: ../include/PreProcess.hpp
 CMakeFiles/communication.dir/src/communication.cpp.o: ../include/Track.hpp
+CMakeFiles/communication.dir/src/communication.cpp.o: ../include/config.h
 CMakeFiles/communication.dir/src/communication.cpp.o: ../include/coordinateTrans.hpp
 CMakeFiles/communication.dir/src/communication.cpp.o: ../include/data.hpp
 CMakeFiles/communication.dir/src/communication.cpp.o: ../include/serial.hpp
@@ -167,7 +167,6 @@ CMakeFiles/communication.dir/src/communication.cpp.o: /usr/local/include/opencv4
 CMakeFiles/communication.dir/src/communication.cpp.o: /usr/local/include/opencv4/opencv2/flann/any.h
 CMakeFiles/communication.dir/src/communication.cpp.o: /usr/local/include/opencv4/opencv2/flann/autotuned_index.h
 CMakeFiles/communication.dir/src/communication.cpp.o: /usr/local/include/opencv4/opencv2/flann/composite_index.h
-CMakeFiles/communication.dir/src/communication.cpp.o: /usr/local/include/opencv4/opencv2/flann/config.h
 CMakeFiles/communication.dir/src/communication.cpp.o: /usr/local/include/opencv4/opencv2/flann/defines.h
 CMakeFiles/communication.dir/src/communication.cpp.o: /usr/local/include/opencv4/opencv2/flann/dist.h
 CMakeFiles/communication.dir/src/communication.cpp.o: /usr/local/include/opencv4/opencv2/flann/dynamic_bitset.h

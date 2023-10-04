@@ -37,8 +37,8 @@ public:
     bool readParas(std::string fileName);
     // bool receiveDta(void);
 
-    void coordinateTrans(const cv::Point3f &targetPoint, const std::vector<cv::Point2f> &inputPoints, my_time &, my_data &); // 没理解错的话应该是Armor类调用我，即识别一个点转化一次
-    void traceCal(my_time &, my_data&);
+    pose_pack coordinateTrans(const cv::Point3f &targetPoint, const std::vector<cv::Point2f> &inputPoints, my_time &, my_data &); // 没理解错的话应该是Armor类调用我，即识别一个点转化一次
+    pose_pack traceCal(my_time &, my_data &);
 
     void leastSquare(my_data &); // 最小二乘求最优解
 
@@ -70,7 +70,7 @@ private:
 
     unsigned long long int t_hit = 0;   // 弹丸击中装甲板所需的时间，这个不需要动（单位：毫秒）
     unsigned long long int t_delay = 0; // 这个是电控的控制延迟（即云台转动需要的时间），需要调
-    //unsigned long long int delta_t = 0; // 这个是调用我的周期，一定要调！！！
+    // unsigned long long int delta_t = 0; // 这个是调用我的周期，一定要调！！！
 
     int queue_length = 10; // 队列长度，即最小二乘时样本的个数
 
@@ -303,7 +303,7 @@ bool TargetSolver::readParas(std::string fileName)
 // bool TargetSolver::receiveDta(void)
 // {}
 
-void TargetSolver::coordinateTrans(const cv::Point3f &targetPoint, const std::vector<cv::Point2f> &inputPoints, my_time &mt, my_data &data) // 没理解错的话应该是Armor类调用我，即识别一个点转化一次
+pose_pack TargetSolver::coordinateTrans(const cv::Point3f &targetPoint, const std::vector<cv::Point2f> &inputPoints, my_time &mt, my_data &data) // 没理解错的话应该是Armor类调用我，即识别一个点转化一次
 {
     std::vector<double> rvec; // 旋转向量
     std::vector<double> tvec; // 平移向量
@@ -333,12 +333,12 @@ void TargetSolver::coordinateTrans(const cv::Point3f &targetPoint, const std::ve
         cv::solvePnP(PW3D_Big, inputPoints, cameraMatrix, distCoeffs, rvec, tvec, false, cv::SOLVEPNP_ITERATIVE);
     }
 
-    std::cout << "tvec: ";
-    for (auto &tmp : tvec)
-    {
-        std::cout << tmp << ' ';
-    }
-    std::cout << std::endl;
+    // std::cout << "tvec: ";
+    // for (auto &tmp : tvec)
+    // {
+    //     std::cout << tmp << ' ';
+    // }
+    // std::cout << std::endl;
 
     /*第三步：旋转向量转化为旋转矩阵*/
     cv::Rodrigues(rvec, R);
@@ -377,28 +377,30 @@ void TargetSolver::coordinateTrans(const cv::Point3f &targetPoint, const std::ve
     }
 
     x_output = P * x_output;
-    std::cout << "298: x = " << x_output.at<double>(0, 0) << " y = " << x_output.at<double>(1, 0) << " z = " << x_output.at<double>(2, 0) << std::endl;
+    // std::cout << "298: x = " << x_output.at<double>(0, 0) << " y = " << x_output.at<double>(1, 0) << " z = " << x_output.at<double>(2, 0) << std::endl;
     /*第五步：矩阵相加并将坐标系绕x轴逆时针旋转90度，将目标点在相机系转为在云台系*/
     x_output.at<double>(2, 0) += length; // z的变换，length还需要和机械同学商量>
     x_output.at<double>(1, 0) -= height; // y的变换，height还需要和机械同学商量
-    std::cout << "302: x = " << x_output.at<double>(0, 0) << " y = " << x_output.at<double>(1, 0) << " z = " << x_output.at<double>(2, 0) << std::endl;
+    // std::cout << "302: x = " << x_output.at<double>(0, 0) << " y = " << x_output.at<double>(1, 0) << " z = " << x_output.at<double>(2, 0) << std::endl;
 
     double tmp = -x_output.at<double>(1, 0);
     x_output.at<double>(1, 0) = x_output.at<double>(2, 0);
     x_output.at<double>(2, 0) = tmp; // 云台系1到云台系2
 
-    std::cout << "308: x = " << x_output.at<double>(0, 0) << " y = " << x_output.at<double>(1, 0) << " z = " << x_output.at<double>(2, 0) << "yaw = " << 180 * atan2(x_output.at<double>(0, 0), x_output.at<double>(1, 0)) / acos(-1.0) << std::endl;
+    // std::cout << "308: x = " << x_output.at<double>(0, 0) << " y = " << x_output.at<double>(1, 0) << " z = " << x_output.at<double>(2, 0) << "yaw = " << 180 * atan2(x_output.at<double>(0, 0), x_output.at<double>(1, 0)) / acos(-1.0) << std::endl;
 
     /*第六步：将该点在云台系的坐标转换为在大地坐标系的坐标*/
 
     // double yaw = -5.5333 * acos(-1.0) / 180, pitch = 0.7388 * acos(-1.0) / 180, roll = -0.0277 * acos(-1.0) / 180;
 
     // get(yaw, pitch, roll);//这里需要通信那边的电控发给视觉的实时yaw，pitch，roll的值
+    // printf("\n%ld\n",data.ts.GetTimeStamp(mt).time_ms);
     pose_pack pack = data.get_info(data.ts.GetTimeStamp(mt));
+
     cv::Mat YAW = (cv::Mat_<double>(4, 4) << cos(pack.ptz_yaw), -sin(pack.ptz_yaw), 0, 0, sin(pack.ptz_yaw), cos(pack.ptz_yaw), 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
     cv::Mat PITCH = (cv::Mat_<double>(4, 4) << 1, 0, 0, 0, 0, cos(pack.ptz_pitch), -sin(pack.ptz_pitch), 0, 0, sin(pack.ptz_pitch), cos(pack.ptz_pitch), 0, 0, 0, 0, 1);
     cv::Mat ROLL = (cv::Mat_<double>(4, 4) << cos(pack.ptz_roll), 0, sin(pack.ptz_roll), 0, 0, 1, 0, 0, -sin(pack.ptz_roll), 0, cos(pack.ptz_roll), 0, 0, 0, 0, 1);
-
+    // printf("\n2\n");
     x_output = YAW * PITCH * ROLL * x_output;
     /*第七步：返回结果*/
     target.x = x_output.at<double>(0, 0);
@@ -408,14 +410,14 @@ void TargetSolver::coordinateTrans(const cv::Point3f &targetPoint, const std::ve
     target.yaw = -atan2(target.y, target.x);
     /*这里还得考虑边缘情况*/
     /*测试区*/
-    std::cout << "大地坐标系：";
-    std::cout << "x = " << x_output.at<double>(0, 0) << ", y = " << x_output.at<double>(1, 0) << ", z = " << x_output.at<double>(2, 0) << std::endl;
-    this->traceCal(mt, data);
+    // std::cout << "大地坐标系：";
+    // std::cout << "x = " << x_output.at<double>(0, 0) << ", y = " << x_output.at<double>(1, 0) << ", z = " << x_output.at<double>(2, 0) << std::endl;
     data.sendTargetDataPack.pred_pitch = this->pitch_result;
     data.sendTargetDataPack.pred_yaw = this->yaw_result;
+    return this->traceCal(mt, data);
 }
 
-void TargetSolver::traceCal(my_time &mt, my_data& md)
+pose_pack TargetSolver::traceCal(my_time &mt, my_data &md)
 {
     double x = target.xy_plane_distance;
     double y = target.z;
@@ -433,27 +435,32 @@ void TargetSolver::traceCal(my_time &mt, my_data& md)
 
     yaw = -180 * atan2(target.x, target.y) / acos(-1.0);
     pitch = 180 * atan2(tan_theta, 1) / acos(-1.0);
-    std::cout << "yaw: " << yaw << std::endl;
-    std::cout << "pitch: " << pitch << std::endl;
+    // std::cout << "yaw: " << yaw << std::endl;
+    // std::cout << "pitch: " << pitch << std::endl;
 
     t_hit = 1000 * m_small * (exp(k_small * x / m_small) - 1) / (k_small * v0_small * cos(atan2(tan_theta, 1)));
+    // printf("entre\n");
+    // if (pack_pre.isFull())
+    // {
+    //     leastSquare(md); // 先算一步
+    //     pack_pre.dequeue();
+    // }
+    // printf("end\n");
 
-    if (pack_pre.isFull())
-    {
-        leastSquare(md); // 先算一步
-        pack_pre.dequeue();
-    }
     pose_pack tmp;
-    tmp.ptz_yaw = -atan2(target.x, target.y);
-    tmp.ptz_pitch = atan2(tan_theta, 1);
+    tmp.ptz_yaw = yaw;
+    tmp.ptz_pitch = pitch;
     tmp.pack_time = mt;
-    pack_pre.enqueue(tmp);
+    // md.write_pack(tmp);
+    return tmp;
+    // pack_pre.enqueue(tmp);
 }
 
-void TargetSolver::leastSquare(my_data& md) // 最小二乘求最优解
+void TargetSolver::leastSquare(my_data &md) // 最小二乘求最优解
 {
     double b_yaw = 0, a_yaw = 0, sigma_xy_yaw = 0, sigma_x_yaw = 0, sigma_y_yaw = 0, sigma_xx_yaw = 0;
     double b_pitch = 0, a_pitch = 0, sigma_xy_pitch = 0, sigma_x_pitch = 0, sigma_y_pitch = 0, sigma_xx_pitch = 0;
+// printf("entre\n");
 
     for (int i = 0; i < queue_length; ++i)
     {
@@ -466,17 +473,19 @@ void TargetSolver::leastSquare(my_data& md) // 最小二乘求最优解
         sigma_x_pitch += pack_pre[i].pack_time.time_ms;
         sigma_y_pitch += pack_pre[i].ptz_pitch;
         sigma_xx_pitch += pack_pre[i].pack_time.time_ms * pack_pre[i].pack_time.time_ms;
-
     }
+// printf("entre1\n");
 
     b_yaw = (sigma_xy_yaw - sigma_x_yaw * sigma_y_yaw / queue_length) / (sigma_xx_yaw - sigma_x_yaw * sigma_x_yaw / queue_length);
     a_yaw = (sigma_y_yaw - b_yaw * sigma_x_yaw) / queue_length;
 
     b_pitch = (sigma_xy_pitch - sigma_x_pitch * sigma_y_pitch / queue_length) / (sigma_xx_pitch - sigma_x_pitch * sigma_x_pitch / queue_length);
     a_pitch = (sigma_y_pitch - b_pitch * sigma_x_pitch) / queue_length;
+// printf("entre2\n");
 
     // yaw_result = b_yaw * (queue_length + t_hit / delta_t + t_delay / delta_t) + a_yaw;
     // pitch_result = b_pitch * (queue_length + t_hit / delta_t + t_delay / delta_t) + a_pitch;
+// printf("entre3\n");
 
     yaw_result = b_yaw * (md.ts.GetTimeStamp().time_ms + t_hit + t_delay) + a_yaw;
     pitch_result = b_pitch * (md.ts.GetTimeStamp().time_ms + t_hit + t_delay) + a_pitch;
