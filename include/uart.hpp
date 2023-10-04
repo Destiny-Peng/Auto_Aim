@@ -230,7 +230,7 @@ public:
                     this->write_buf[0] = 0xFC;
                     this->write_buf[1] = this->length_flag & 0xff;
                     this->write_buf[this->length_flag + 2] = 0xFC;
-                    this->write_buf[this->length_flag + 3] = this->length_target | 0x80 & 0xff;
+                    this->write_buf[this->length_flag + 3] = (this->length_target | 0x80) & 0xff;
                 }
                 this->state_write = SEND;
             }

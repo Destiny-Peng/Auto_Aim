@@ -51,8 +51,8 @@ public:
 	bool is_an_armor(LightBar LightBar1, LightBar LightBar2) {
 		double delta_slope = 0.085;
 		double delta_area = 0.4;
-		if ((-delta_slope < get_slope(LightBar1.lightbar) - get_slope(LightBar2.lightbar)) &&(get_slope(LightBar1.lightbar) - get_slope(LightBar2.lightbar) < delta_slope)
-			&&(delta_area < get_area(LightBar1.lightbar) / get_area(LightBar2.lightbar) < 1 / delta_area)&&(get_area(LightBar1.lightbar) / get_area(LightBar2.lightbar) < 1 / delta_area)){
+		if ((-delta_slope < (get_slope(LightBar1.lightbar) - get_slope(LightBar2.lightbar))) &&((get_slope(LightBar1.lightbar) - get_slope(LightBar2.lightbar)) < delta_slope)
+			&&(delta_area < get_area(LightBar1.lightbar) / get_area(LightBar2.lightbar))&&(get_area(LightBar1.lightbar) / get_area(LightBar2.lightbar) < 1 / delta_area)){
 			return true;
 			}
 		else return false;

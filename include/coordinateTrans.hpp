@@ -40,7 +40,7 @@ public:
     void coordinateTrans(const cv::Point3f &targetPoint, const std::vector<cv::Point2f> &inputPoints, my_time &, my_data &); // 没理解错的话应该是Armor类调用我，即识别一个点转化一次
     void traceCal(my_time &, my_data&);
 
-    void leastSquare(my_time &, my_data &); // 最小二乘求最优解
+    void leastSquare(my_data &); // 最小二乘求最优解
 
     void test(void);
 
@@ -440,7 +440,7 @@ void TargetSolver::traceCal(my_time &mt, my_data& md)
 
     if (pack_pre.isFull())
     {
-        leastSquare(mt, md); // 先算一步
+        leastSquare(md); // 先算一步
         pack_pre.dequeue();
     }
     pose_pack tmp;
@@ -450,7 +450,7 @@ void TargetSolver::traceCal(my_time &mt, my_data& md)
     pack_pre.enqueue(tmp);
 }
 
-void TargetSolver::leastSquare(my_time &mt, my_data& md) // 最小二乘求最优解
+void TargetSolver::leastSquare(my_data& md) // 最小二乘求最优解
 {
     double b_yaw = 0, a_yaw = 0, sigma_xy_yaw = 0, sigma_x_yaw = 0, sigma_y_yaw = 0, sigma_xx_yaw = 0;
     double b_pitch = 0, a_pitch = 0, sigma_xy_pitch = 0, sigma_x_pitch = 0, sigma_y_pitch = 0, sigma_xx_pitch = 0;

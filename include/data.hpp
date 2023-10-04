@@ -129,7 +129,6 @@ public:
 
             // 遍历原始数据,过滤重复的0xFC并存入real_data
             int real_len = 0;
-            uint16_t ori_sum = 0;
             // printf("%d\n",pack.len);
             for (int i = 0; i < pack.len; i++)
             {

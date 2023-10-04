@@ -46,8 +46,6 @@ opencv2/opencv.hpp
 PreProcess.hpp
 /home/dji/projects/PYR/Auto_Aim/include/PreProcess.hpp
 
-/home/dji/projects/PYR/Auto_Aim/include/config.h
-
 /home/dji/projects/PYR/Auto_Aim/include/coordinateTrans.hpp
 opencv2/opencv.hpp
 -
@@ -107,14 +105,6 @@ thread
 -
 data.hpp
 /home/dji/projects/PYR/Auto_Aim/include/data.hpp
-
-/home/dji/projects/PYR/Auto_Aim/src/CamDrv.cpp
-iostream
--
-../include/CamDrv.hpp
-/home/dji/projects/PYR/Auto_Aim/include/CamDrv.hpp
-../include/config.h
-/home/dji/projects/PYR/Auto_Aim/include/config.h
 
 /home/dji/projects/PYR/Auto_Aim/src/communication.cpp
 ../include/uart.hpp
