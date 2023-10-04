@@ -59,7 +59,7 @@ int main()
     thread t1(ReceiveThread, ref(test), ref(uart1));
     thread t2(SendThread, ref(test), ref(uart1));
     TargetSolver ts;
-    ts.readParas("./camera_param5.xml");
+    ts.readParas("../config/camera_param2.xml");
     // ts.coordinateTrans(cv::Point3f(0, 0, 0));
     // ts.traceCal();
     double score_max = 0;
@@ -100,8 +100,11 @@ int main()
                 }
             }
             test.sendFlagPack.target_found = true;
-            // std::cout << FliteredArmors[i_max].getPoints() << std::endl;
+            // std::cout <<"FliteredArmors[i_max].getPoints()"<< FliteredArmors[i_max].getPoints() << std::endl;
+            // test.pose_pack_queue.front()
             test.tep = ts.coordinateTrans(cv::Point3f(0, 0, 0), FliteredArmors[i_max].getPoints(), mt, test);
+            std::cout<<"pitch:"<<test.tep.ptz_pitch<<endl<<"yaw:"<<test.tep.ptz_yaw<<endl;
+            // std::cout<<"end!!!!!!!!!!!!!!!!!!!!!!!!!"<<std::endl;
         }
         else
         {

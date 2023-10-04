@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/dji/projects/PYR/Auto_Aim
+CMAKE_SOURCE_DIR = /home/dji/projects/Auto_Aim
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/dji/projects/PYR/Auto_Aim/build
+CMAKE_BINARY_DIR = /home/dji/projects/Auto_Aim/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/communication.dir/depend.make
@@ -59,29 +59,29 @@ include CMakeFiles/communication.dir/flags.make
 
 CMakeFiles/communication.dir/src/communication.cpp.o: CMakeFiles/communication.dir/flags.make
 CMakeFiles/communication.dir/src/communication.cpp.o: ../src/communication.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dji/projects/PYR/Auto_Aim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/communication.dir/src/communication.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/communication.dir/src/communication.cpp.o -c /home/dji/projects/PYR/Auto_Aim/src/communication.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dji/projects/Auto_Aim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/communication.dir/src/communication.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/communication.dir/src/communication.cpp.o -c /home/dji/projects/Auto_Aim/src/communication.cpp
 
 CMakeFiles/communication.dir/src/communication.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/communication.dir/src/communication.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dji/projects/PYR/Auto_Aim/src/communication.cpp > CMakeFiles/communication.dir/src/communication.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dji/projects/Auto_Aim/src/communication.cpp > CMakeFiles/communication.dir/src/communication.cpp.i
 
 CMakeFiles/communication.dir/src/communication.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/communication.dir/src/communication.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dji/projects/PYR/Auto_Aim/src/communication.cpp -o CMakeFiles/communication.dir/src/communication.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dji/projects/Auto_Aim/src/communication.cpp -o CMakeFiles/communication.dir/src/communication.cpp.s
 
 CMakeFiles/communication.dir/src/CamDrv.cpp.o: CMakeFiles/communication.dir/flags.make
 CMakeFiles/communication.dir/src/CamDrv.cpp.o: ../src/CamDrv.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dji/projects/PYR/Auto_Aim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/communication.dir/src/CamDrv.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/communication.dir/src/CamDrv.cpp.o -c /home/dji/projects/PYR/Auto_Aim/src/CamDrv.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dji/projects/Auto_Aim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/communication.dir/src/CamDrv.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/communication.dir/src/CamDrv.cpp.o -c /home/dji/projects/Auto_Aim/src/CamDrv.cpp
 
 CMakeFiles/communication.dir/src/CamDrv.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/communication.dir/src/CamDrv.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dji/projects/PYR/Auto_Aim/src/CamDrv.cpp > CMakeFiles/communication.dir/src/CamDrv.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dji/projects/Auto_Aim/src/CamDrv.cpp > CMakeFiles/communication.dir/src/CamDrv.cpp.i
 
 CMakeFiles/communication.dir/src/CamDrv.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/communication.dir/src/CamDrv.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dji/projects/PYR/Auto_Aim/src/CamDrv.cpp -o CMakeFiles/communication.dir/src/CamDrv.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dji/projects/Auto_Aim/src/CamDrv.cpp -o CMakeFiles/communication.dir/src/CamDrv.cpp.s
 
 # Object files for target communication
 communication_OBJECTS = \
@@ -94,64 +94,23 @@ communication_EXTERNAL_OBJECTS =
 communication: CMakeFiles/communication.dir/src/communication.cpp.o
 communication: CMakeFiles/communication.dir/src/CamDrv.cpp.o
 communication: CMakeFiles/communication.dir/build.make
-communication: /usr/local/lib/libopencv_gapi.so.4.5.3
-communication: /usr/local/lib/libopencv_stitching.so.4.5.3
-communication: /usr/local/lib/libopencv_alphamat.so.4.5.3
-communication: /usr/local/lib/libopencv_aruco.so.4.5.3
-communication: /usr/local/lib/libopencv_barcode.so.4.5.3
-communication: /usr/local/lib/libopencv_bgsegm.so.4.5.3
-communication: /usr/local/lib/libopencv_bioinspired.so.4.5.3
-communication: /usr/local/lib/libopencv_ccalib.so.4.5.3
-communication: /usr/local/lib/libopencv_dnn_objdetect.so.4.5.3
-communication: /usr/local/lib/libopencv_dnn_superres.so.4.5.3
-communication: /usr/local/lib/libopencv_dpm.so.4.5.3
-communication: /usr/local/lib/libopencv_face.so.4.5.3
-communication: /usr/local/lib/libopencv_freetype.so.4.5.3
-communication: /usr/local/lib/libopencv_fuzzy.so.4.5.3
-communication: /usr/local/lib/libopencv_hfs.so.4.5.3
-communication: /usr/local/lib/libopencv_img_hash.so.4.5.3
-communication: /usr/local/lib/libopencv_intensity_transform.so.4.5.3
-communication: /usr/local/lib/libopencv_line_descriptor.so.4.5.3
-communication: /usr/local/lib/libopencv_mcc.so.4.5.3
-communication: /usr/local/lib/libopencv_quality.so.4.5.3
-communication: /usr/local/lib/libopencv_rapid.so.4.5.3
-communication: /usr/local/lib/libopencv_reg.so.4.5.3
-communication: /usr/local/lib/libopencv_rgbd.so.4.5.3
-communication: /usr/local/lib/libopencv_saliency.so.4.5.3
-communication: /usr/local/lib/libopencv_sfm.so.4.5.3
-communication: /usr/local/lib/libopencv_stereo.so.4.5.3
-communication: /usr/local/lib/libopencv_structured_light.so.4.5.3
-communication: /usr/local/lib/libopencv_superres.so.4.5.3
-communication: /usr/local/lib/libopencv_surface_matching.so.4.5.3
-communication: /usr/local/lib/libopencv_tracking.so.4.5.3
-communication: /usr/local/lib/libopencv_videostab.so.4.5.3
-communication: /usr/local/lib/libopencv_wechat_qrcode.so.4.5.3
-communication: /usr/local/lib/libopencv_xfeatures2d.so.4.5.3
-communication: /usr/local/lib/libopencv_xobjdetect.so.4.5.3
-communication: /usr/local/lib/libopencv_xphoto.so.4.5.3
-communication: /lib/libMVSDK.so
-communication: /usr/local/lib/libopencv_shape.so.4.5.3
 communication: /usr/local/lib/libopencv_highgui.so.4.5.3
-communication: /usr/local/lib/libopencv_datasets.so.4.5.3
-communication: /usr/local/lib/libopencv_plot.so.4.5.3
-communication: /usr/local/lib/libopencv_text.so.4.5.3
 communication: /usr/local/lib/libopencv_ml.so.4.5.3
-communication: /usr/local/lib/libopencv_phase_unwrapping.so.4.5.3
-communication: /usr/local/lib/libopencv_optflow.so.4.5.3
-communication: /usr/local/lib/libopencv_ximgproc.so.4.5.3
+communication: /usr/local/lib/libopencv_objdetect.so.4.5.3
+communication: /usr/local/lib/libopencv_photo.so.4.5.3
+communication: /usr/local/lib/libopencv_stitching.so.4.5.3
 communication: /usr/local/lib/libopencv_video.so.4.5.3
 communication: /usr/local/lib/libopencv_videoio.so.4.5.3
-communication: /usr/local/lib/libopencv_dnn.so.4.5.3
+communication: /lib/libMVSDK.so
 communication: /usr/local/lib/libopencv_imgcodecs.so.4.5.3
-communication: /usr/local/lib/libopencv_objdetect.so.4.5.3
 communication: /usr/local/lib/libopencv_calib3d.so.4.5.3
+communication: /usr/local/lib/libopencv_dnn.so.4.5.3
 communication: /usr/local/lib/libopencv_features2d.so.4.5.3
 communication: /usr/local/lib/libopencv_flann.so.4.5.3
-communication: /usr/local/lib/libopencv_photo.so.4.5.3
 communication: /usr/local/lib/libopencv_imgproc.so.4.5.3
 communication: /usr/local/lib/libopencv_core.so.4.5.3
 communication: CMakeFiles/communication.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/dji/projects/PYR/Auto_Aim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable communication"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/dji/projects/Auto_Aim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable communication"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/communication.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -164,6 +123,6 @@ CMakeFiles/communication.dir/clean:
 .PHONY : CMakeFiles/communication.dir/clean
 
 CMakeFiles/communication.dir/depend:
-	cd /home/dji/projects/PYR/Auto_Aim/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/dji/projects/PYR/Auto_Aim /home/dji/projects/PYR/Auto_Aim /home/dji/projects/PYR/Auto_Aim/build /home/dji/projects/PYR/Auto_Aim/build /home/dji/projects/PYR/Auto_Aim/build/CMakeFiles/communication.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/dji/projects/Auto_Aim/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/dji/projects/Auto_Aim /home/dji/projects/Auto_Aim /home/dji/projects/Auto_Aim/build /home/dji/projects/Auto_Aim/build /home/dji/projects/Auto_Aim/build/CMakeFiles/communication.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/communication.dir/depend
 

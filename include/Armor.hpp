@@ -14,7 +14,7 @@ using namespace dnn;
 class Armor {
 private:
 	Mat grayimg;
-	Net net = readNetFromONNX("./model.onnx");
+	Net net = readNetFromONNX("../config/model.onnx");
 	LightBar lightbar1,lightbar2;
 	Mat imgwarp;
 

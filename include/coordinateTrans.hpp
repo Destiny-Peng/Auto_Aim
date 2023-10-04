@@ -58,8 +58,11 @@ private:
     // std::vector<double> rvec;//旋转向量
     // std::vector<double> tvec;//平移向量
 
-    double length = 0.103771; // 相机坐标系转云台坐标系时z轴的平移量，需要机械测量
-    double height = 0.042518; // 相机坐标系转云台坐标系时x轴的平移量
+    // double length = 0.103771; // 相机坐标系转云台坐标系时z轴的平移量，需要机械测量
+    // double height = 0.042518; // 相机坐标系转云台坐标系时x轴的平移量
+
+    double length = 0.13362; // 相机坐标系转云台坐标系时z轴的平移量，需要机械测量
+    double height = 0.08539; // 相机坐标系转云台坐标系时x轴的平移量        //英雄
 
     double v0_small = 15; // 小弹丸的初速度，这个也需要测
     double k_small = 7.1655E-5;
@@ -397,9 +400,11 @@ pose_pack TargetSolver::coordinateTrans(const cv::Point3f &targetPoint, const st
     // printf("\n%ld\n",data.ts.GetTimeStamp(mt).time_ms);
     pose_pack pack = data.get_info(data.ts.GetTimeStamp(mt));
 
-    cv::Mat YAW = (cv::Mat_<double>(4, 4) << cos(pack.ptz_yaw), -sin(pack.ptz_yaw), 0, 0, sin(pack.ptz_yaw), cos(pack.ptz_yaw), 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-    cv::Mat PITCH = (cv::Mat_<double>(4, 4) << 1, 0, 0, 0, 0, cos(pack.ptz_pitch), -sin(pack.ptz_pitch), 0, 0, sin(pack.ptz_pitch), cos(pack.ptz_pitch), 0, 0, 0, 0, 1);
-    cv::Mat ROLL = (cv::Mat_<double>(4, 4) << cos(pack.ptz_roll), 0, sin(pack.ptz_roll), 0, 0, 1, 0, 0, -sin(pack.ptz_roll), 0, cos(pack.ptz_roll), 0, 0, 0, 0, 1);
+    printf("%lf\t%lf\n",pack.ptz_pitch,pack.ptz_yaw);
+
+    cv::Mat YAW = (cv::Mat_<double>(4, 4) << cos(pack.ptz_yaw*acos(-1.0)/180.0), -sin(pack.ptz_yaw*acos(-1.0)/180.0), 0, 0, sin(pack.ptz_yaw*acos(-1.0)/180.0), cos(pack.ptz_yaw*acos(-1.0)/180.0), 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    cv::Mat PITCH = (cv::Mat_<double>(4, 4) << 1, 0, 0, 0, 0, cos(pack.ptz_pitch*acos(-1.0)/180.0), -sin(pack.ptz_pitch*acos(-1.0)/180.0), 0, 0, sin(pack.ptz_pitch*acos(-1.0)/180.0), cos(pack.ptz_pitch*acos(-1.0)/180.0), 0, 0, 0, 0, 1);
+    cv::Mat ROLL = (cv::Mat_<double>(4, 4) << cos(pack.ptz_roll*acos(-1.0)/180.0), 0, sin(pack.ptz_roll*acos(-1.0)/180.0), 0, 0, 1, 0, 0, -sin(pack.ptz_roll*acos(-1.0)/180.0), 0, cos(pack.ptz_roll*acos(-1.0)/180.0), 0, 0, 0, 0, 1);
     // printf("\n2\n");
     x_output = YAW * PITCH * ROLL * x_output;
     /*第七步：返回结果*/
@@ -411,7 +416,9 @@ pose_pack TargetSolver::coordinateTrans(const cv::Point3f &targetPoint, const st
     /*这里还得考虑边缘情况*/
     /*测试区*/
     // std::cout << "大地坐标系：";
-    // std::cout << "x = " << x_output.at<double>(0, 0) << ", y = " << x_output.at<double>(1, 0) << ", z = " << x_output.at<double>(2, 0) << std::endl;
+    std::cout << "x = " << x_output.at<double>(0, 0) << ", y = " << x_output.at<double>(1, 0) << ", z = " << x_output.at<double>(2, 0) << std::endl;
+    std::cout<<"distance:"<<powf32(x_output.at<double>(0, 0),2)+powf32(x_output.at<double>(1, 0),2)<<std::endl;
+
     data.sendTargetDataPack.pred_pitch = this->pitch_result;
     data.sendTargetDataPack.pred_yaw = this->yaw_result;
     return this->traceCal(mt, data);

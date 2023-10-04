@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/dji/projects/PYR/Auto_Aim/src/CamDrv.cpp" "/home/dji/projects/PYR/Auto_Aim/build/CMakeFiles/communication.dir/src/CamDrv.cpp.o"
-  "/home/dji/projects/PYR/Auto_Aim/src/communication.cpp" "/home/dji/projects/PYR/Auto_Aim/build/CMakeFiles/communication.dir/src/communication.cpp.o"
+  "/home/dji/projects/Auto_Aim/src/CamDrv.cpp" "/home/dji/projects/Auto_Aim/build/CMakeFiles/communication.dir/src/CamDrv.cpp.o"
+  "/home/dji/projects/Auto_Aim/src/communication.cpp" "/home/dji/projects/Auto_Aim/build/CMakeFiles/communication.dir/src/communication.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

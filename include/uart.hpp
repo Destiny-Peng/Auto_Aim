@@ -242,20 +242,20 @@ public:
                     write(this->fd, this->write_buf, this->length_flag + 2);
                     for (int i = 0; i < this->length_flag + this->length_target + 2; i++)
                     {
-                        printf("%x ", this->write_buf[i]);
+                        // printf("%x ", this->write_buf[i]);
                         this->write_buf[i] = 0x00;
                     }
-                    printf("\n");
+                    // printf("\n");
                 }
                 else if (pack.pack_type == 3)
                 {
                     write(this->fd, this->write_buf, this->length_flag + this->length_target + 4);
                     for (int i = 0; i < this->length_flag + this->length_target + 4; i++)
                     {
-                        printf("%x ", this->write_buf[i]);
+                        // printf("%x ", this->write_buf[i]);
                         this->write_buf[i] = 0x00;
                     }
-                    printf("\n");
+                    // printf("\n");
                 }
                 this->length_flag = 0;
                 this->length_target = 0;

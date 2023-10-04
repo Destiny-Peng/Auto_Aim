@@ -6,71 +6,71 @@
 
 #IncludeRegexTransform: 
 
-/home/dji/projects/PYR/Auto_Aim/include/Armor.hpp
+/home/dji/projects/Auto_Aim/include/Armor.hpp
 iostream
 -
 opencv2/opencv.hpp
 -
 LightBar.hpp
-/home/dji/projects/PYR/Auto_Aim/include/LightBar.hpp
+/home/dji/projects/Auto_Aim/include/LightBar.hpp
 
-/home/dji/projects/PYR/Auto_Aim/include/CamDrv.hpp
+/home/dji/projects/Auto_Aim/include/CamDrv.hpp
 CameraApi.h
-/home/dji/projects/PYR/Auto_Aim/include/CameraApi.h
+/home/dji/projects/Auto_Aim/include/CameraApi.h
 opencv2/opencv.hpp
 -
 config.h
-/home/dji/projects/PYR/Auto_Aim/include/config.h
+/home/dji/projects/Auto_Aim/include/config.h
 cstring
 -
 iostream
 -
 
-/home/dji/projects/PYR/Auto_Aim/include/LightBar.hpp
+/home/dji/projects/Auto_Aim/include/LightBar.hpp
 iostream
 -
 opencv2/opencv.hpp
 -
 
-/home/dji/projects/PYR/Auto_Aim/include/PreProcess.hpp
+/home/dji/projects/Auto_Aim/include/PreProcess.hpp
 iostream
 -
 opencv2/opencv.hpp
 -
 Armor.hpp
-/home/dji/projects/PYR/Auto_Aim/include/Armor.hpp
+/home/dji/projects/Auto_Aim/include/Armor.hpp
 time_stamp.hpp
-/home/dji/projects/PYR/Auto_Aim/include/time_stamp.hpp
+/home/dji/projects/Auto_Aim/include/time_stamp.hpp
 
-/home/dji/projects/PYR/Auto_Aim/include/Track.hpp
+/home/dji/projects/Auto_Aim/include/Track.hpp
 iostream
 -
 opencv2/opencv.hpp
 -
 PreProcess.hpp
-/home/dji/projects/PYR/Auto_Aim/include/PreProcess.hpp
+/home/dji/projects/Auto_Aim/include/PreProcess.hpp
 
-/home/dji/projects/PYR/Auto_Aim/include/config.h
+/home/dji/projects/Auto_Aim/include/config.h
 
-/home/dji/projects/PYR/Auto_Aim/include/coordinateTrans.hpp
+/home/dji/projects/Auto_Aim/include/coordinateTrans.hpp
 opencv2/opencv.hpp
 -
 data.hpp
-/home/dji/projects/PYR/Auto_Aim/include/data.hpp
+/home/dji/projects/Auto_Aim/include/data.hpp
 stdio.h
 -
 
-/home/dji/projects/PYR/Auto_Aim/include/data.hpp
+/home/dji/projects/Auto_Aim/include/data.hpp
 cstdint
 -
 math.h
 -
 serial.hpp
-/home/dji/projects/PYR/Auto_Aim/include/serial.hpp
+/home/dji/projects/Auto_Aim/include/serial.hpp
 time_stamp.hpp
-/home/dji/projects/PYR/Auto_Aim/include/time_stamp.hpp
+/home/dji/projects/Auto_Aim/include/time_stamp.hpp
 
-/home/dji/projects/PYR/Auto_Aim/include/serial.hpp
+/home/dji/projects/Auto_Aim/include/serial.hpp
 cstring
 -
 sys/time.h
@@ -80,9 +80,9 @@ deque
 mutex
 -
 time_stamp.hpp
-/home/dji/projects/PYR/Auto_Aim/include/time_stamp.hpp
+/home/dji/projects/Auto_Aim/include/time_stamp.hpp
 
-/home/dji/projects/PYR/Auto_Aim/include/time_stamp.hpp
+/home/dji/projects/Auto_Aim/include/time_stamp.hpp
 chrono
 -
 mutex
@@ -92,7 +92,7 @@ vector
 sys/time.h
 -
 
-/home/dji/projects/PYR/Auto_Aim/include/uart.hpp
+/home/dji/projects/Auto_Aim/include/uart.hpp
 fcntl.h
 -
 termios.h
@@ -110,17 +110,17 @@ mutex
 thread
 -
 data.hpp
-/home/dji/projects/PYR/Auto_Aim/include/data.hpp
+/home/dji/projects/Auto_Aim/include/data.hpp
 
-/home/dji/projects/PYR/Auto_Aim/src/communication.cpp
+/home/dji/projects/Auto_Aim/src/communication.cpp
 ../include/uart.hpp
-/home/dji/projects/PYR/Auto_Aim/include/uart.hpp
+/home/dji/projects/Auto_Aim/include/uart.hpp
 ../include/coordinateTrans.hpp
-/home/dji/projects/PYR/Auto_Aim/include/coordinateTrans.hpp
+/home/dji/projects/Auto_Aim/include/coordinateTrans.hpp
 ../include/Track.hpp
-/home/dji/projects/PYR/Auto_Aim/include/Track.hpp
+/home/dji/projects/Auto_Aim/include/Track.hpp
 ../include/CamDrv.hpp
-/home/dji/projects/PYR/Auto_Aim/include/CamDrv.hpp
+/home/dji/projects/Auto_Aim/include/CamDrv.hpp
 
 /usr/local/include/opencv4/opencv2/calib3d.hpp
 opencv2/core.hpp

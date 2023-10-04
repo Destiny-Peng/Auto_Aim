@@ -1,7 +1,7 @@
 %YAML:1.0
 ---
-frame_width: 640
-frame_height: 480
+frame_width: 1280 #640
+frame_height: 960 #480
 blue_channel_gain: 100
 green_channel_gain: 132
 red_channel_gain: 168

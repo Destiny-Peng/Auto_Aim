@@ -278,13 +278,22 @@ public:
         std::lock_guard<std::mutex> lock(data_mtx);
         pose_pack pack1, pack2;
         pack1 = pose_pack_queue.front();
+        // printf("pack1:%lf\n", pack1.ptz_pitch);
         // printf("%ld\n",pack1.pack_time.time_ms);
         pack2 = pose_pack_queue.second();
+        // printf("pack2:%lf\n", pack2.ptz_pitch);
         // printf("%ld\n",pack2.pack_time.time_ms);
         pose_pack pack = pack1 - pack2;
-        unsigned long long delta_time = pack1.pack_time.time_ms - pack2.pack_time.time_ms;
-        // printf("%ld\n",delta_time);
-        pack = (pack / delta_time) * (mt.time_ms - pack2.pack_time.time_ms);
+        // printf("%ld\t%ld\t%ld\n", mt.time_ms, pack2.pack_time.time_ms, mt.time_ms - pack2.pack_time.time_ms);
+        // printf("pack/5:%lf\n", (pack / 5).ptz_pitch);
+        double ms1 = mt.time_ms;
+        double ms2 = pack2.pack_time.time_ms;
+        // printf("%lf\t%lf\t%lf\n",ms1,ms2,ms1-ms2);
+        // printf("%lf\n", ((pack / 5) * (ms1-ms2)).ptz_pitch);
+
+        pack = (pack / 5) * (ms1-ms2) + pack2;
+        // printf("pack:%lf\n", pack.ptz_pitch);
+
         pack.pack_time = mt;
         return pack;
     }
