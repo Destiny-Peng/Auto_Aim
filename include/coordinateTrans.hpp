@@ -67,7 +67,7 @@ private:
     double v0_small = 15; // 小弹丸的初速度，这个也需要测
     double k_small = 7.1655E-5;
     double m_small = 0.0032;
-    double v0_big = 15; // 大弹丸的初速度，这个也需要测
+    double v0_big = 15.8; // 大弹丸的初速度，这个也需要测
     double k_big = 4.5857E-4;
     double m_big = 0.0041;
 
@@ -438,14 +438,14 @@ pose_pack TargetSolver::traceCal(my_time &mt, my_data &md)
     //  }
 
     // 方法二：直接接二元一次方程
-    tan_theta = (1 - sqrt(1 - 2 * 9.8 * y / (v0_small * v0_small))) * k_small * v0_small * v0_small / (m_small * 9.8 * (exp(k_small * x / m_small) - 1)); // 这里最开始的1 - 待定，可能是1 +
+    tan_theta = (1 - sqrt(1 - 2 * 9.8 * y / (v0_big * v0_big))) * k_big * v0_big * v0_big / (m_big * 9.8 * (exp(k_big * x / m_big) - 1)); // 这里最开始的1 - 待定，可能是1 +
 
     yaw = -180 * atan2(target.x, target.y) / acos(-1.0);
     pitch = 180 * atan2(tan_theta, 1) / acos(-1.0);
     // std::cout << "yaw: " << yaw << std::endl;
     // std::cout << "pitch: " << pitch << std::endl;
 
-    t_hit = 1000 * m_small * (exp(k_small * x / m_small) - 1) / (k_small * v0_small * cos(atan2(tan_theta, 1)));
+    t_hit = 1000 * m_big * (exp(k_big * x / m_big) - 1) / (k_big * v0_big * cos(atan2(tan_theta, 1)));
     // printf("entre\n");
     // if (pack_pre.isFull())
     // {
@@ -498,22 +498,22 @@ void TargetSolver::leastSquare(my_data &md) // 最小二乘求最优解
     pitch_result = b_pitch * (md.ts.GetTimeStamp().time_ms + t_hit + t_delay) + a_pitch;
 }
 
-void TargetSolver::test(void)
-{
-    double x = target.xy_plane_distance;
-    double y = target.z;
+// void TargetSolver::test(void)
+// {
+//     double x = target.xy_plane_distance;
+//     double y = target.z;
 
-    double tan_theta, pitch, yaw;
+//     double tan_theta, pitch, yaw;
 
-    // 方法一：不动点迭代，迭代5次
-    //  for (int i = 0; i < 5; ++i)
-    //  {
-    //      tan_theta = (k_small * v0_small * y / (m_small * v0_small * (exp(k_small * x / m_small) - 1))) + m_small * 9.8 * (exp(k_small * x / m_small) - 1) * (1 + tan_theta * tan_theta) / (2 * k_small * v0_small * v0_small);
-    //  }
-    // 方法二：直接接二元一次方程
-    yaw = -180 * atan2(target.x, target.y) / acos(-1.0);
-    tan_theta = (1 - sqrt(1 - 2 * 9.8 * y / (v0_small * v0_small))) * k_small * v0_small * v0_small / (m_small * 9.8 * (exp(k_small * x / m_small) - 1)); // 这里最开始的1 - 待定，可能是1 +
-    pitch = 180 * atan2(tan_theta, 1) / acos(-1.0);
-    std::cout << "yaw: " << yaw << std::endl;
-    std::cout << "pitch: " << pitch << std::endl;
-}
+//     // 方法一：不动点迭代，迭代5次
+//     //  for (int i = 0; i < 5; ++i)
+//     //  {
+//     //      tan_theta = (k_small * v0_small * y / (m_small * v0_small * (exp(k_small * x / m_small) - 1))) + m_small * 9.8 * (exp(k_small * x / m_small) - 1) * (1 + tan_theta * tan_theta) / (2 * k_small * v0_small * v0_small);
+//     //  }
+//     // 方法二：直接接二元一次方程
+//     yaw = -180 * atan2(target.x, target.y) / acos(-1.0);
+//     tan_theta = (1 - sqrt(1 - 2 * 9.8 * y / (v0_small * v0_small))) * k_small * v0_small * v0_small / (m_small * 9.8 * (exp(k_small * x / m_small) - 1)); // 这里最开始的1 - 待定，可能是1 +
+//     pitch = 180 * atan2(tan_theta, 1) / acos(-1.0);
+//     std::cout << "yaw: " << yaw << std::endl;
+//     std::cout << "pitch: " << pitch << std::endl;
+// }

@@ -9,7 +9,7 @@
 struct Send_Flag_Pack
 {
     bool target_found = false;
-    bool fire = false;
+    bool fire = true;
     bool burstShoot = false;
     bool exitRune = false;
     bool rune_fire = false;

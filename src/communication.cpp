@@ -103,6 +103,7 @@ int main()
             // std::cout <<"FliteredArmors[i_max].getPoints()"<< FliteredArmors[i_max].getPoints() << std::endl;
             // test.pose_pack_queue.front()
             test.tep = ts.coordinateTrans(cv::Point3f(0, 0, 0), FliteredArmors[i_max].getPoints(), mt, test);
+            test.tep.ptz_pitch+=2;
             std::cout<<"pitch:"<<test.tep.ptz_pitch<<endl<<"yaw:"<<test.tep.ptz_yaw<<endl;
             // std::cout<<"end!!!!!!!!!!!!!!!!!!!!!!!!!"<<std::endl;
         }
