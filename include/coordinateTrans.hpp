@@ -75,7 +75,7 @@ private:
     unsigned long long int t_delay = 0; // 这个是电控的控制延迟（即云台转动需要的时间），需要调
     // unsigned long long int delta_t = 0; // 这个是调用我的周期，一定要调！！！
 
-    int queue_length = 10; // 队列长度，即最小二乘时样本的个数
+    int queue_length = 3; // 队列长度，即最小二乘时样本的个数
 
     circularQueue<pose_pack> pack_pre;
 
@@ -151,7 +151,10 @@ bool circularQueue<T>::enqueue(const T &elem)
     }
     else
     {
+        // printf("entre\n");
+        //printf("%d\n",rear);
         arr[rear] = elem;
+        // printf("end\n");
         rear = (rear + 1) % max_size;
         return 1;
     }
@@ -224,7 +227,9 @@ bool circularQueue<T>::remove(const int &n) // 删掉几个
             dequeue();
         }
         return 1;
-    }
+    }        // std::cout << "pitch:" << test.tep.ptz_pitch 
+        //           << " yaw:" << test.tep.ptz_yaw << endl;
+
 }
 
 bool TargetSolver::init(void)
@@ -399,12 +404,15 @@ pose_pack TargetSolver::coordinateTrans(const cv::Point3f &targetPoint, const st
     // get(yaw, pitch, roll);//这里需要通信那边的电控发给视觉的实时yaw，pitch，roll的值
     // printf("\n%ld\n",data.ts.GetTimeStamp(mt).time_ms);
     pose_pack pack = data.get_info(data.ts.GetTimeStamp(mt));
+    pack.ptz_yaw -= 0.185;
+    pack.ptz_pitch -= 1.44;
+    // pack.ptz_roll += 0;
 
-    printf("%lf\t%lf\n",pack.ptz_pitch,pack.ptz_yaw);
+    //printf("%lf\t%lf\n", pack.ptz_pitch, pack.ptz_yaw);
 
-    cv::Mat YAW = (cv::Mat_<double>(4, 4) << cos(pack.ptz_yaw*acos(-1.0)/180.0), -sin(pack.ptz_yaw*acos(-1.0)/180.0), 0, 0, sin(pack.ptz_yaw*acos(-1.0)/180.0), cos(pack.ptz_yaw*acos(-1.0)/180.0), 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-    cv::Mat PITCH = (cv::Mat_<double>(4, 4) << 1, 0, 0, 0, 0, cos(pack.ptz_pitch*acos(-1.0)/180.0), -sin(pack.ptz_pitch*acos(-1.0)/180.0), 0, 0, sin(pack.ptz_pitch*acos(-1.0)/180.0), cos(pack.ptz_pitch*acos(-1.0)/180.0), 0, 0, 0, 0, 1);
-    cv::Mat ROLL = (cv::Mat_<double>(4, 4) << cos(pack.ptz_roll*acos(-1.0)/180.0), 0, sin(pack.ptz_roll*acos(-1.0)/180.0), 0, 0, 1, 0, 0, -sin(pack.ptz_roll*acos(-1.0)/180.0), 0, cos(pack.ptz_roll*acos(-1.0)/180.0), 0, 0, 0, 0, 1);
+    cv::Mat YAW = (cv::Mat_<double>(4, 4) << cos(pack.ptz_yaw * acos(-1.0) / 180.0), -sin(pack.ptz_yaw * acos(-1.0) / 180.0), 0, 0, sin(pack.ptz_yaw * acos(-1.0) / 180.0), cos(pack.ptz_yaw * acos(-1.0) / 180.0), 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    cv::Mat PITCH = (cv::Mat_<double>(4, 4) << 1, 0, 0, 0, 0, cos(pack.ptz_pitch * acos(-1.0) / 180.0), -sin(pack.ptz_pitch * acos(-1.0) / 180.0), 0, 0, sin(pack.ptz_pitch * acos(-1.0) / 180.0), cos(pack.ptz_pitch * acos(-1.0) / 180.0), 0, 0, 0, 0, 1);
+    cv::Mat ROLL = (cv::Mat_<double>(4, 4) << cos(pack.ptz_roll * acos(-1.0) / 180.0), 0, sin(pack.ptz_roll * acos(-1.0) / 180.0), 0, 0, 1, 0, 0, -sin(pack.ptz_roll * acos(-1.0) / 180.0), 0, cos(pack.ptz_roll * acos(-1.0) / 180.0), 0, 0, 0, 0, 1);
     // printf("\n2\n");
     x_output = YAW * PITCH * ROLL * x_output;
     /*第七步：返回结果*/
@@ -416,11 +424,11 @@ pose_pack TargetSolver::coordinateTrans(const cv::Point3f &targetPoint, const st
     /*这里还得考虑边缘情况*/
     /*测试区*/
     // std::cout << "大地坐标系：";
-    std::cout << "x = " << x_output.at<double>(0, 0) << ", y = " << x_output.at<double>(1, 0) << ", z = " << x_output.at<double>(2, 0) << std::endl;
-    std::cout<<"distance:"<<powf32(x_output.at<double>(0, 0),2)+powf32(x_output.at<double>(1, 0),2)<<std::endl;
+    // std::cout << "x = " << x_output.at<double>(0, 0) << ", y = " << x_output.at<double>(1, 0) << ", z = " << x_output.at<double>(2, 0) << std::endl;
+    // std::cout << "distance:" << powf32(x_output.at<double>(0, 0), 2) + powf32(x_output.at<double>(1, 0), 2) << std::endl;
 
-    data.sendTargetDataPack.pred_pitch = this->pitch_result;
-    data.sendTargetDataPack.pred_yaw = this->yaw_result;
+    // data.sendTargetDataPack.pred_pitch = this->pitch_result;
+    // data.sendTargetDataPack.pred_yaw = this->yaw_result;
     return this->traceCal(mt, data);
 }
 
@@ -429,7 +437,8 @@ pose_pack TargetSolver::traceCal(my_time &mt, my_data &md)
     double x = target.xy_plane_distance;
     double y = target.z;
     double tan_theta = 0.5; // 初始值设置成0.5
-    double yaw = 0, pitch = 0;
+    pose_pack tmp;
+    // double yaw = 0, pitch = 0;
 
     // 方法一：不动点迭代，迭代5次
     //  for (int i = 0; i < 5; ++i)
@@ -440,34 +449,83 @@ pose_pack TargetSolver::traceCal(my_time &mt, my_data &md)
     // 方法二：直接接二元一次方程
     tan_theta = (1 - sqrt(1 - 2 * 9.8 * y / (v0_big * v0_big))) * k_big * v0_big * v0_big / (m_big * 9.8 * (exp(k_big * x / m_big) - 1)); // 这里最开始的1 - 待定，可能是1 +
 
-    yaw = -180 * atan2(target.x, target.y) / acos(-1.0);
-    pitch = 180 * atan2(tan_theta, 1) / acos(-1.0);
+    this->yaw_result = -180 * atan2(target.x, target.y) / acos(-1.0);
+    this->pitch_result = 180 * atan2(tan_theta, 1) / acos(-1.0);
     // std::cout << "yaw: " << yaw << std::endl;
     // std::cout << "pitch: " << pitch << std::endl;
 
     t_hit = 1000 * m_big * (exp(k_big * x / m_big) - 1) / (k_big * v0_big * cos(atan2(tan_theta, 1)));
-    // printf("entre\n");
+    // target_found =true enqueue
+    
+    if (md.sendFlagPack.target_found)
+    {
+        // this->leastSquare(md);
+        tmp.ptz_yaw = this->yaw_result;
+        tmp.ptz_pitch = this->pitch_result;
+        tmp.pack_time = mt;
+        if (pack_pre.isFull())
+        {
+            // for (int i = 0; i < pack_pre.length(); ++i)
+            // {
+            //     std::cout << "pack_pre " << i << " pitch: " << pack_pre.get(i).ptz_pitch << " yaw: " << pack_pre.get(i).ptz_yaw;
+            // }
+            // std::cout << std::endl;
+            pack_pre.dequeue();
+        }
+        // printf("entre\n");
+        pack_pre.enqueue(tmp);
+        // printf("end\n");
+    }
+    else
+    {
+        // false  !isFull -> nothing
+        // false   isFull ->tracecal
+        if (pack_pre.isFull())
+        {
+            // std::cout << "??" << std::endl;
+            leastSquare(md);
+            tmp.ptz_yaw = this->yaw_result;
+            tmp.ptz_pitch = this->pitch_result;
+            tmp.pack_time = mt;
+
+            
+        }
+    }
+    return tmp;
     // if (pack_pre.isFull())
     // {
+    //     md.sendFlagPack.target_found = true;
     //     leastSquare(md); // 先算一步
     //     pack_pre.dequeue();
+    //     pose_pack tmp;
+    //     tmp.ptz_yaw = this->yaw_result;
+    //     tmp.ptz_pitch = this->pitch_result;
+    //     tmp.pack_time = mt;
+    //     return tmp;
     // }
-    // printf("end\n");
+    // else
+    // {
 
-    pose_pack tmp;
-    tmp.ptz_yaw = yaw;
-    tmp.ptz_pitch = pitch;
-    tmp.pack_time = mt;
+    //     pose_pack tmp;
+    //     tmp.ptz_yaw = this->yaw_result;
+    //     tmp.ptz_pitch = this->pitch_result;
+    //     tmp.pack_time = mt;
+    //     if (md.sendFlagPack.target_found)
+    //     {
+    //         pack_pre.enqueue(tmp);
+    //     }
+    //     return tmp;
+    // }
+
     // md.write_pack(tmp);
-    return tmp;
-    // pack_pre.enqueue(tmp);
+    // return tmp;
 }
 
 void TargetSolver::leastSquare(my_data &md) // 最小二乘求最优解
 {
     double b_yaw = 0, a_yaw = 0, sigma_xy_yaw = 0, sigma_x_yaw = 0, sigma_y_yaw = 0, sigma_xx_yaw = 0;
     double b_pitch = 0, a_pitch = 0, sigma_xy_pitch = 0, sigma_x_pitch = 0, sigma_y_pitch = 0, sigma_xx_pitch = 0;
-// printf("entre\n");
+    // printf("entre\n");
 
     for (int i = 0; i < queue_length; ++i)
     {
@@ -481,21 +539,25 @@ void TargetSolver::leastSquare(my_data &md) // 最小二乘求最优解
         sigma_y_pitch += pack_pre[i].ptz_pitch;
         sigma_xx_pitch += pack_pre[i].pack_time.time_ms * pack_pre[i].pack_time.time_ms;
     }
-// printf("entre1\n");
+    // printf("entre1\n");
 
     b_yaw = (sigma_xy_yaw - sigma_x_yaw * sigma_y_yaw / queue_length) / (sigma_xx_yaw - sigma_x_yaw * sigma_x_yaw / queue_length);
     a_yaw = (sigma_y_yaw - b_yaw * sigma_x_yaw) / queue_length;
 
     b_pitch = (sigma_xy_pitch - sigma_x_pitch * sigma_y_pitch / queue_length) / (sigma_xx_pitch - sigma_x_pitch * sigma_x_pitch / queue_length);
     a_pitch = (sigma_y_pitch - b_pitch * sigma_x_pitch) / queue_length;
-// printf("entre2\n");
+    // printf("entre2\n");
 
     // yaw_result = b_yaw * (queue_length + t_hit / delta_t + t_delay / delta_t) + a_yaw;
     // pitch_result = b_pitch * (queue_length + t_hit / delta_t + t_delay / delta_t) + a_pitch;
-// printf("entre3\n");
+    // printf("entre3\n");
 
-    yaw_result = b_yaw * (md.ts.GetTimeStamp().time_ms + t_hit + t_delay) + a_yaw;
-    pitch_result = b_pitch * (md.ts.GetTimeStamp().time_ms + t_hit + t_delay) + a_pitch;
+    yaw_result = b_yaw * (md.ts.GetTimeStamp().time_ms) + a_yaw;
+    // std::cout << "time_ms = " << md.ts.GetTimeStamp().time_ms << ", b_yaw = " << b_yaw << ", a_yaw = " << a_yaw << std::endl;
+    // yaw_result = b_yaw * (md.ts.GetTimeStamp().time_ms + t_hit + t_delay) + a_yaw;
+    pitch_result = b_pitch * (md.ts.GetTimeStamp().time_ms) + a_pitch;
+    //std::cout << "yaw_result = " << yaw_result << ", pitch_result = " << pitch_result;
+    // pitch_result = b_pitch * (md.ts.GetTimeStamp().time_ms + t_hit + t_delay) + a_pitch;
 }
 
 // void TargetSolver::test(void)

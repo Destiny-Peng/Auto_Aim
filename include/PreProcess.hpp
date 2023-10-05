@@ -60,11 +60,11 @@ public:
 		// imshow("imgdilate", binaryImage);
 		vector<vector<Point>> cs = getContours(imgdilate);
 		contourimg = DrawContours(input, cs);
-		imshow("contourimg", contourimg);
+		//imshow("contourimg", contourimg);
 		dilate(contourimg, newcontours, kernal2);
 		vector<vector<Point>> cs2 = getContours(newcontours);
 		ProcessedImage = DrawContours(input, cs2);
-		imshow("ProcessedImage",ProcessedImage);
+		// imshow("ProcessedImage",ProcessedImage);
 		return cs2;
 	}
 

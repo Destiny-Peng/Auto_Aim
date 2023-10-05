@@ -60,28 +60,28 @@ include CMakeFiles/communication.dir/flags.make
 CMakeFiles/communication.dir/src/communication.cpp.o: CMakeFiles/communication.dir/flags.make
 CMakeFiles/communication.dir/src/communication.cpp.o: ../src/communication.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dji/projects/Auto_Aim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/communication.dir/src/communication.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/communication.dir/src/communication.cpp.o -c /home/dji/projects/Auto_Aim/src/communication.cpp
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/communication.dir/src/communication.cpp.o -c /home/dji/projects/Auto_Aim/src/communication.cpp
 
 CMakeFiles/communication.dir/src/communication.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/communication.dir/src/communication.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dji/projects/Auto_Aim/src/communication.cpp > CMakeFiles/communication.dir/src/communication.cpp.i
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dji/projects/Auto_Aim/src/communication.cpp > CMakeFiles/communication.dir/src/communication.cpp.i
 
 CMakeFiles/communication.dir/src/communication.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/communication.dir/src/communication.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dji/projects/Auto_Aim/src/communication.cpp -o CMakeFiles/communication.dir/src/communication.cpp.s
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dji/projects/Auto_Aim/src/communication.cpp -o CMakeFiles/communication.dir/src/communication.cpp.s
 
 CMakeFiles/communication.dir/src/CamDrv.cpp.o: CMakeFiles/communication.dir/flags.make
 CMakeFiles/communication.dir/src/CamDrv.cpp.o: ../src/CamDrv.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dji/projects/Auto_Aim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/communication.dir/src/CamDrv.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/communication.dir/src/CamDrv.cpp.o -c /home/dji/projects/Auto_Aim/src/CamDrv.cpp
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/communication.dir/src/CamDrv.cpp.o -c /home/dji/projects/Auto_Aim/src/CamDrv.cpp
 
 CMakeFiles/communication.dir/src/CamDrv.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/communication.dir/src/CamDrv.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dji/projects/Auto_Aim/src/CamDrv.cpp > CMakeFiles/communication.dir/src/CamDrv.cpp.i
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dji/projects/Auto_Aim/src/CamDrv.cpp > CMakeFiles/communication.dir/src/CamDrv.cpp.i
 
 CMakeFiles/communication.dir/src/CamDrv.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/communication.dir/src/CamDrv.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dji/projects/Auto_Aim/src/CamDrv.cpp -o CMakeFiles/communication.dir/src/CamDrv.cpp.s
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dji/projects/Auto_Aim/src/CamDrv.cpp -o CMakeFiles/communication.dir/src/CamDrv.cpp.s
 
 # Object files for target communication
 communication_OBJECTS = \

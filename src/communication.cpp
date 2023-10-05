@@ -35,8 +35,8 @@ void SendThread(my_data &data, uart &uart1)
         else
         {
             pose_pack tep;
-            if(data.write_pack(tep))
-            uart1.my_write(data);
+            if (data.write_pack(tep))
+                uart1.my_write(data);
         }
         delta_time = data.ts.GetTimeStamp().time_us - delta_time;
         // printf("%ld\n",delta_time);
@@ -59,6 +59,7 @@ int main()
     thread t1(ReceiveThread, ref(test), ref(uart1));
     thread t2(SendThread, ref(test), ref(uart1));
     TargetSolver ts;
+    ts.init();
     ts.readParas("../config/camera_param2.xml");
     // ts.coordinateTrans(cv::Point3f(0, 0, 0));
     // ts.traceCal();
@@ -74,8 +75,8 @@ int main()
     {
         Mat frame;
         c->get_Mat(frame);
-        cv::imshow("src", frame);
-        cv::waitKey(5);
+        //cv::imshow("src", frame);
+        cv::waitKey(1);
         // 取图
         // cv::imshow("test",frame);
         my_time mt;
@@ -103,14 +104,16 @@ int main()
             // std::cout <<"FliteredArmors[i_max].getPoints()"<< FliteredArmors[i_max].getPoints() << std::endl;
             // test.pose_pack_queue.front()
             test.tep = ts.coordinateTrans(cv::Point3f(0, 0, 0), FliteredArmors[i_max].getPoints(), mt, test);
-            test.tep.ptz_pitch+=2;
-            std::cout<<"pitch:"<<test.tep.ptz_pitch<<endl<<"yaw:"<<test.tep.ptz_yaw<<endl;
-            // std::cout<<"end!!!!!!!!!!!!!!!!!!!!!!!!!"<<std::endl;
+            // test.tep.ptz_pitch += 2;
+            std::cout<<"end"<<std::endl;
         }
         else
         {
             test.sendFlagPack.target_found = false;
+            test.tep = ts.traceCal(mt, test);
         }
+        // std::cout << "pitch:" << test.tep.ptz_pitch 
+        //           << " yaw:" << test.tep.ptz_yaw << endl;
     }
 
     t1.join();
